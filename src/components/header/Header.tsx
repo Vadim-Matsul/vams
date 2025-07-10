@@ -43,7 +43,7 @@ export function Header({ }: Props) {
     <>
       <header
         className={cn(
-          'sticky top-0'
+          'sticky top-0 z-[10]'
         )}
       >
         <section

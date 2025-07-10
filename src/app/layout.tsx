@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Unbounded, Geist } from 'next/font/google';
+import 'swiper/css';
 import '../style/globals.css';
 import 'normalize.css'
 import { cn } from '@/utils/cn';

@@ -27,7 +27,7 @@ export default function IntroBlock({ }: Props) {
 
       <article
         className={cn(
-          'relative mx-auto',
+          'relative z-[1] mx-auto',
           'h-[390px] w-[324px]',
           'md:w-[688px] md:h-[310px]',
           'xl:w-[1085px] xl:h-[597px]',
@@ -41,7 +41,7 @@ export default function IntroBlock({ }: Props) {
             'z-[4] w-[145px] h-[115px] left-[24px] top-[30px]',
             'md:z-[7] md:w-[175px] md:h-[138px] md:-top-[25px] md:left-[14px]', // md
             'xl:z-[7] xl:w-[324px] xl:h-[257px] xl:top-[10px] xl:-left-[50px]', // xl
-            '1_5xl:top-[0px] 1_5xl:left-[133px]'
+            '1_5xl:top-[0px] 1_5xl:left-[133px]' // 1_5xl
           )}
         >
           <div
@@ -1216,35 +1216,51 @@ export default function IntroBlock({ }: Props) {
 
         <div
           className={cn(
-            'w-[288px] h-[44px] bg-blue-500'
+            'rounded-[90px] overflow-hidden',
+            'mx-auto transition-all',
+            'hover:scale-[.95] focus:scale-[.95]',
+            'w-[288px] h-[44px]'
           )}
         >
-          <button
+          <StarBorder
+            as="button"
+            color="var(--color-custom-brand-200)"
+            speed="3s"
+            thickness={1.5}
             className={cn(
-              'w-[288px] h-[44px] py-1.5 px-6 text-custom-brand-100'
+              'cursor-pointer'
             )}
           >
             <div
-              className='flex items-center justify-center gap-2.5'
+              className={cn(
+                'bg-custom-white-100 text-custom-brand-100',
+                'w-full h-full rounded-[90px]',
+                'border-[1px] border-custom-brand-100',
+                'flex items-center justify-center',
+                'gap-2.5'
+              )}
             >
-              <p
+              <h3
                 className={cn(
                   'font-geist font-semibold leading-none',
-                  'text-[16px] '
+                  'text-[16px]'
                 )}
               >
                 Запросить консультацию
-              </p>
+              </h3>
 
               <div>
                 <ArrowRightIcon
-                  className='w-[20px] h-[20px]'
+                  className={cn(
+                    'w-[20px] h-[20px]'
+                  )}
                 />
               </div>
             </div>
-          </button>
+          </StarBorder>
         </div>
       </section>
     </section>
   )
 }
+

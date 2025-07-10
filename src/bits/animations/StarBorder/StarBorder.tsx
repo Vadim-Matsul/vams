@@ -29,6 +29,7 @@ export const StarBorder = <T extends React.ElementType = 'button'>({
   return (
     <Component
       className={cn(
+        'w-full h-full',
         'relative inline-block overflow-hidden rounded-[20px]',
         className,
       )}
@@ -59,7 +60,11 @@ export const StarBorder = <T extends React.ElementType = 'button'>({
         }}
       />
 
-      <div className="relative z-1 bg-gradient-to-b from-black to-gray-900 border border-gray-800 text-white text-center text-[16px] py-[16px] px-[26px] rounded-[20px]">
+      <div
+        className={cn(
+          "relative z-1 h-full"
+        )}
+      >
         {children}
       </div>
     </Component>
