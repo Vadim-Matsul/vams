@@ -1,4 +1,8 @@
 export const screensData = {
+  md: {
+    num: 768,
+    str: '768px',
+  },
   '1_5lg': {
     num: 1180,
     str: '1180px',

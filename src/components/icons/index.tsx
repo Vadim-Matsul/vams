@@ -4,4 +4,4 @@ export * from './ArrowRightIcon'
 export * from './InstagramIcon'
 export * from './LogoIcon'
 export * from './GrowStatisticIcon'
-
+export * from './TelegramV2Icon'

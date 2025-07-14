@@ -51,11 +51,33 @@ export const links = {
     channel_name: 'vsrealty',
     channel_href: 'https://t.me/vsrealty',
   },
+  whatsapp: {
+    contact_href: 'https://wa.me/777', // TODO: add number
+  },
+  instagram: {
+    account_href: 'https://www.instagram.com/vsr.smartrealty',
+  },
   phone: {
     str_number: '+7 927 830-57-95',
     num_number: 79278305795,
   },
-  whatsapp: {
-    contact_href: 'https://wa.me/777', // TODO: add number
+  office_address: {
+    yandex_href: 'https://yandex.ru/maps/?text=Москва%2C%20Большая%20Никитская%20улица%2C%2015%20стр%202',
+    location_name: 'Большая Никитская улица, 15 стр 2 Москва',
+  },
+  mail: {
+    email: 'office@vams-realty.ru',
+  },
+  policy_personal_data: {
+    href: '#',
+  },
+  consent_marketing: {
+    href: '#',
+  },
+  consent_personal_data: {
+    href: '#',
+  },
+  cookie_policy: {
+    href: '#',
   },
 } as const;

@@ -3,13 +3,30 @@
 import { cn } from '@/utils/cn'
 import { LogoIcon } from '../icons/LogoIcon'
 import { links, pageLinkKeys, pageLinks } from '@/configs/links'
-import { TelegramIcon, WhatsAppIcon } from '../icons'
+import { InstagramIcon, TelegramIcon, TelegramV2Icon, WhatsAppIcon } from '../icons'
 import { useLayoutEffect, useState } from 'react'
 import Link from 'next/link';
 import { Drawer } from 'vaul';
 import { screensData } from '@/configs/screens';
+import { homeBlockIDs } from '@/configs/homeBlockIds';
+import { LiquidGlass } from '@/ui/LiquidGlass';
+import { motion, AnimatePresence } from "framer-motion";
+import { FadeContent } from '@/bits/FadeContent';
+import { SplitText } from '@/bits/SplitText';
 
 type Props = {}
+
+const options = {
+  delay: 30,
+  duration: 0.5,
+  ease: "power3.out",
+  splitType: "chars",
+  from: { opacity: 0, y: 20 },
+  to: { opacity: 1, y: 0 },
+  threshold: 0,
+  rootMargin: "0px",
+  textAlign: "center",
+} as const;
 
 const excludePages = [pageLinkKeys.HOME];
 const pageLinksArr = Object
@@ -47,10 +64,11 @@ export function Header({ }: Props) {
         )}
       >
         <section
-          className='bg-[#163033] h-[28px]'
+          className='bg-[#163033] h-[28px] relative'
         >
           <div
             className={cn(
+              // 'absolute inset-0 z-[2]',
               'h-full flex items-center justify-center',
               'max-w-[var(--breakpoint-1_5xl)] 1_5xl:mx-auto'
             )}
@@ -74,109 +92,133 @@ export function Header({ }: Props) {
             boxShadow: `0px 3px 8px 3px rgba(53, 53, 53, 0.05), inset 0px 2px 10px 5px rgba(53, 53, 53, 0.05), inset 0px 0px 14px 0px rgba(255, 255, 255, 0.35), inset 1px 3px 5px 0px rgba(255, 255, 255, 0.30), inset -1px -3px 3px 0px rgba(255, 255, 255, 0.10)`
           }}
           className={cn(
-            'h-[52px] bg-white/5 backdrop-blur-[5px] rounded-b-xl flex items-center',
+            'h-[52px] 1_5lg:h-[80px] rounded-b-xl overflow-hidden flex items-center backdrop-blur-[px]',
           )}
         >
-          <div
-            className={cn(
-              'max-w-[var(--breakpoint-1_5xl)] 1_5xl:mx-auto',
-              'flex items-center justify-between px-[18px] md:px-8 grow'
-            )}
+          <LiquidGlass
           >
-            <Link
-              href='/'
+            <div
+              className={cn(
+                'max-w-[var(--breakpoint-1_5xl)] 1_5xl:mx-auto',
+                'flex items-center justify-between px-[18px] md:px-8 grow'
+              )}
             >
-              <LogoIcon
-                className={cn(
-                  'text-custom-brand-200',
-                  'w-[103px] h-4 md:w-[135px] md:h-[21px]',
-                )}
-              />
-            </Link>
-
-            <div className='hidden 1_5lg:flex gap-6 items-center '>
-              {pageLinksArr.map(pageLink => {
-
-                return (
-                  <Link
-                    href={pageLink.href}
-                    key={pageLink.key}
-                    className='text-custom-brand_200 leading-tight font-geist text-base font-medium'
-                  >
-                    {pageLink.title}
-                  </Link>
-                )
-              })}
-            </div>
-
-            <div className='flex items-center 1_5xl:gap-6'>
-              <a
-                href={`tel:+${links.phone.num_number}`}
-                className='hidden 1_5xl:inline font-medium font-geist text-base leading-[19px]'
+              <Link
+                href='/'
               >
-                {links.phone.str_number}
-              </a>
+                <LogoIcon
+                  className={cn(
+                    'text-custom-brand-200',
+                    'w-[103px] h-4 md:w-[135px] md:h-[21px]',
+                  )}
+                />
+              </Link>
 
-              <div className='flex items-center gap-1.5 md:gap-3 1_5xl:gap-6'>
-                <div className='flex items-center gap-1.5 md:gap-3 1_5xl:gap-0'>
-                  <a
-                    href={links.telegram.channel_href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className='flex items-center justify-center w-9 h-9 text-custom-brand-200'
-                  >
-                    <TelegramIcon className='w-[20px] h-4' />
-                  </a>
+              <div className='hidden 1_5lg:flex gap-6 items-center '>
+                {pageLinksArr.map(pageLink => {
 
-                  <a
-                    href={links.whatsapp.contact_href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className='flex items-center justify-center w-9 h-9 text-custom-brand-200'
-                  >
-                    <WhatsAppIcon className='w-[21px] h-[21px]' />
-                  </a>
-                </div>
-
-                <div>
-                  <button
-                    className={cn(
-                      'hidden 1_5lg:block'
-                    )}
-                  >
-                    Запросить консультацию
-                  </button>
-
-                  <div className='mt-0.5'>
-                    <button
-                      onClick={() => setIsOpen(!isOpen)}
-                      className='1_5lg:hidden w-[28px] aspect-square relative cursor-pointer'
+                  return (
+                    <Link
+                      href={pageLink.href}
+                      key={pageLink.key}
+                      className='text-custom-brand_200 leading-tight font-geist text-base font-medium'
                     >
-                      <div
-                        className={cn(
-                          'absolute transition-all',
-                          'w-6 h-0.5 bg-custom-brand-200',
-                          isOpen
-                            ? 'rotate-[45deg] top-[13px] left-[1.5px]'
-                            : 'top-[9px] left-[1.5px]'
-                        )}
-                      />
-                      <div
-                        className={cn(
-                          'absolute transition-all',
-                          'w-6 h-0.5 bg-custom-brand-200',
-                          isOpen
-                            ? '-rotate-[45deg] bottom-[13px] left-[1.5px]'
-                            : 'bottom-[9px] left-[1.5px]'
-                        )}
-                      />
-                    </button>
-                  </div>
-                </div>
+                      {pageLink.title}
+                    </Link>
+                  )
+                })}
+              </div>
 
+              <div className='flex items-center 1_5xl:gap-6'>
+                <a
+                  href={`tel:+${links.phone.num_number}`}
+                  className='hidden 1_5xl:inline font-medium font-geist text-base leading-[19px]'
+                >
+                  {links.phone.str_number}
+                </a>
+
+                <div className='flex items-center gap-1.5 md:gap-3 1_5xl:gap-6'>
+                  <div className='flex items-center gap-1.5 md:gap-3 1_5xl:gap-0'>
+                    <a
+                      href={links.telegram.channel_href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className='flex items-center justify-center w-9 h-9 text-custom-brand-200'
+                    >
+                      <TelegramIcon className='w-[20px] h-4' />
+                    </a>
+
+                    <a
+                      href={links.whatsapp.contact_href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className='flex items-center justify-center w-9 h-9 text-custom-brand-200'
+                    >
+                      <WhatsAppIcon className='w-[21px] h-[21px]' />
+                    </a>
+                  </div>
+
+                  <div>
+                    <div
+                      className={cn(
+                        'hidden 1_5lg:block',
+                        'rounded-[90px] overflow-hidden',
+                        'mx-auto transition-all',
+                        'hover:scale-[.95] focus:scale-[.95]',
+                        'w-[258px] h-[56px] min-h-[56px]'
+                      )}
+                    >
+                      <a
+                        href={'#' + homeBlockIDs.CONTACT_FORM}
+                        className={cn(
+                          'bg-transparent text-custom-brand-100',
+                          'w-full h-full rounded-[90px]',
+                          'border-[1px] border-custom-brand-100',
+                          'flex items-center justify-center',
+                        )}
+                      >
+                        <p
+                          className={cn(
+                            'font-geist font-semibold leading-none',
+                            'text-[16px]'
+                          )}
+                        >
+                          Запросить консультацию
+                        </p>
+                      </a>
+                    </div>
+
+                    <div className='mt-0.5'>
+                      <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className='1_5lg:hidden w-[28px] aspect-square relative cursor-pointer'
+                      >
+                        <div
+                          className={cn(
+                            'absolute transition-all',
+                            'w-6 h-0.5 bg-custom-brand-200',
+                            isOpen
+                              ? 'rotate-[45deg] top-[13px] left-[1.5px]'
+                              : 'top-[9px] left-[1.5px]'
+                          )}
+                        />
+                        <div
+                          className={cn(
+                            'absolute transition-all',
+                            'w-6 h-0.5 bg-custom-brand-200',
+                            isOpen
+                              ? '-rotate-[45deg] bottom-[13px] left-[1.5px]'
+                              : 'bottom-[9px] left-[1.5px]'
+                          )}
+                        />
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
-          </div>
+          </LiquidGlass>
         </section>
       </header>
 
@@ -202,15 +244,214 @@ export function Header({ }: Props) {
                 inset -1px -3px 3px 0px rgba(255, 255, 255, 0.10)
               `
             }}
-            className='fixed z-[21] rounded-l-xl top-0 bottom-0 right-0 w-[max(min(270px,50vw),190px)] bg-custom-white-100'
+            className={cn(
+              'fixed z-[21] rounded-l-xl top-0 bottom-0 right-0 w-[max(min(270px,50vw), 210px)] bg-custom-white-100',
+              'flex flex-col justify-between py-8'
+            )}
           >
-            <>
-              <p>links</p>
-            </>
+            <ul
+              className='flex flex-col gap-7 pl-5'
+            >
+              <AnimatePresence>
+                {isOpen && pageLinksArr.map((item, idx) => (
+                  <motion.li
+                    key={item.key}
+                    initial={{ opacity: 0, x: 60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 60 }}
+                    transition={{ delay: idx * 0.2, type: "spring", stiffness: 400, damping: 30 }}
+                    className='font-unbounded font-medium text-[20px]'
+                  >
+                    {item.title}
+                  </motion.li>
+                ))}
+              </AnimatePresence>
+            </ul>
+
+            <div
+            // className='bg-red-500'
+            >
+              <div
+                className='w-full h-px bg-black/60'
+              />
+
+              <div
+                className='flex flex-col gap-5 px-5 py-8'
+              >
+                <div
+                  className={cn(
+                    'flex flex-col gap-1.5',
+                  )}
+                >
+                  <p
+                    className={cn(
+                      'font-geist text-custom-grey-300',
+                      'text-[14px] leading-[130%]',
+                    )}
+                  >
+                    Офис
+                  </p>
+
+                  <a
+                    href={links.office_address.yandex_href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      'block w-fit font-unbounded text-custom-brand-200 uppercase font-bold',
+                      'text-[16px] leading-[116%]',
+                    )}
+                  >
+                    <SplitText
+                      {...options}
+                      duration={2}
+                      textAlign='left'
+                      text={<>
+                        Москва<br />
+                        Больша&nbsp;Никитская<br />
+                        улица,&nbsp;15&nbsp;стр&nbsp;2
+                      </>}
+                    />
+                  </a>
+                </div>
+                <div
+                  className={cn(
+                    'flex flex-col gap-1.5',
+                  )}
+                >
+                  <p
+                    className={cn(
+                      'font-geist text-custom-grey-300',
+                      'text-[14px] leading-[130%]',
+                    )}
+                  >
+                    Телефон
+                  </p>
+
+                  <a
+                    href={`tel:+${links.phone.num_number}`}
+                    className={cn(
+                      'block w-fit font-unbounded text-custom-brand-200 uppercase font-bold',
+                      'text-[16px] leading-[116%]',
+                    )}
+                  >
+                    <SplitText
+                      {...options}
+                      duration={2}
+                      textAlign='left'
+                      text={links.phone.str_number}
+                    />
+                  </a>
+                </div>
+                <div
+                  className={cn(
+                    'flex flex-col gap-1.5',
+                  )}
+                >
+                  <p
+                    className={cn(
+                      'font-geist text-custom-grey-300',
+                      'text-[14px] leading-[130%]',
+                      'xl:text-[19px]'
+                    )}
+                  >
+                    Email
+                  </p>
+
+                  <a
+                    href={`mailto:${links.mail.email}`}
+                    className={cn(
+                      'block w-fit font-unbounded text-custom-brand-200 uppercase font-bold',
+                      'text-[16px] leading-[116%]',
+                    )}
+                  >
+                    <SplitText
+                      {...options}
+                      duration={2}
+                      textAlign='left'
+                      text={links.mail.email}
+                    />
+                  </a>
+                </div>
+              </div>
+
+              <div className='flex items-center justify-between px-5'>
+                <FadeContent
+                  blur
+                  duration={750}
+                  threshold={0.7}
+                  easing="ease-out"
+                  className='relative w-fit h-fit'
+                >
+                  <a
+                    href={links.telegram.channel_href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={1}
+                    className={cn(
+                      'flex items-center justify-center text-custom-brand-200',
+                      'hover:scale-[.95] focus:scale-[.95] hover:opacity-90 focus:opacity-90 transition-all',
+                      'w-[58px] h-[58px]'
+                    )}
+                  >
+                    <TelegramV2Icon
+                      className='w-[38px] h-[38px]'
+                    />
+                  </a>
+                </FadeContent>
+
+                <FadeContent
+                  blur
+                  duration={1000}
+                  threshold={0.7}
+                  easing="ease-out"
+                  className='relative w-fit h-fit'
+                >
+                  <a
+                    href={links.whatsapp.contact_href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={1}
+                    className={cn(
+                      'flex items-center justify-center text-custom-brand-200',
+                      'hover:scale-[.95] focus:scale-[.95] hover:opacity-90 focus:opacity-90 transition-all',
+                      'w-[58px] h-[58px]'
+                    )}
+                  >
+                    <WhatsAppIcon
+                      className='w-[34px] h-[34px]'
+                    />
+                  </a>
+                </FadeContent>
+
+                <FadeContent
+                  blur
+                  duration={1250}
+                  threshold={0.7}
+                  easing="ease-out"
+                  className='relative w-fit h-fit'
+                >
+                  <a
+                    href={links.instagram.account_href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={1}
+                    className={cn(
+                      'flex items-center justify-center text-custom-brand-200',
+                      'hover:scale-[.95] focus:scale-[.95] hover:opacity-90 focus:opacity-90 transition-all',
+                      'w-[58px] h-[58px]'
+                    )}
+                  >
+                    <InstagramIcon
+                      className='w-[33px] h-[33px]'
+                    />
+                  </a>
+                </FadeContent>
+              </div>
+
+            </div>
           </Drawer.Content>
         </Drawer.Portal>
-      </Drawer.Root >
+      </Drawer.Root>
     </>
-
   )
 }

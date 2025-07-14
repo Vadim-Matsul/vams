@@ -10,14 +10,20 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@react-three/drei": "^10.5.0",
+    "@react-three/fiber": "^9.2.0",
     "clsx": "^2.1.1",
     "gsap": "^3.13.0",
+    "motion": "^12.23.3",
     "next": "15.3.5",
     "normalize.css": "^8.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.60.0",
+    "react-imask": "^7.6.1",
     "swiper": "^11.2.10",
     "tailwind-merge": "^3.3.1",
+    "three": "^0.178.0",
     "vaul": "^1.1.2"
   },
   "devDependencies": {

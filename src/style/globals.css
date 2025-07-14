@@ -1,6 +1,6 @@
 @import url('./variables.css');
 @import url('./normalize.css');
-
+@import url('./scroll.css');
 @import 'tailwindcss';
 
 @theme {
@@ -32,4 +32,8 @@
 
   --breakpoint-1_5lg: 73.75rem; /* 1180px */
   --breakpoint-1_5xl: 90rem; /* 1440px */
+}
+
+html {
+  scroll-behavior: smooth;
 }
