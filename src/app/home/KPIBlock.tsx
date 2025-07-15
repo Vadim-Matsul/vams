@@ -2,49 +2,19 @@
 
 import { BlurText } from '@/bits/BlurText';
 import { CountUp } from '@/bits/CountUp';
-import { FadeContent } from '@/bits/FadeContent';
 import { GlareHover } from '@/bits/GlareHover';
-import { PixelTrail } from '@/bits/PixelTrail';
-import { homeBlockIDs } from '@/configs/homeBlockIds';
 import { LiquidGlass } from '@/ui/LiquidGlass';
 import { cn } from '@/utils/cn'
-import { useInView, useScroll, useTransform, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import Image from 'next/image';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 type Props = {}
 
 export function KPIBlock({ }: Props) {
-  const ref = useRef<HTMLDivElement>(null)
-  const { scrollY } = useScroll()
-  const [scrollRange, setScrollRange] = useState([0, 0])
-  const [marginRange, setMarginRange] = useState([0, 0])
-  const marginTop = useTransform(
-    scrollY,
-    scrollRange,
-    marginRange
-  )
-
-  const isInView = useInView(ref, { amount: 0.1 })
-
-  useEffect(() => {
-    if (!isInView) {
-      setScrollRange([0, 0])
-      setMarginRange([0, 0])
-      return;
-    };
-
-    setScrollRange([window.scrollY, window.scrollY + 300])
-    setMarginRange([0, -(window.innerHeight * 0.3)])
-  }, [isInView])
 
   return (
-    <motion.div
+    <div
       key='KPI block'
-      ref={ref}
-      style={{
-        marginTop,
-      }}
       className='relative z-[2] overflow-hidden text-custom-brand-200'
     >
       <motion.div
@@ -152,7 +122,7 @@ export function KPIBlock({ }: Props) {
                   <BlurText
                     text={'VSR — агентство недвижимости нового поколения. Где каждый объект рассматривается не только как пространство для жизни, но и как инвестиционный актив с потенциалом роста.'}
                     delay={60}
-                    threshold={0.5}
+                    threshold={0.9}
                     animateBy="words"
                     direction="top"
                   />
@@ -237,7 +207,7 @@ export function KPIBlock({ }: Props) {
                   <BlurText
                     text={'Мы создаём новые стандарты, сочетая глубокую аналитику, экспертные знания рынка и клиентоориентированный сервис. Наши решения для тех, кто ценит стратегический подход.'}
                     delay={60}
-                    threshold={0.5}
+                    threshold={0.9}
                     animateBy="words"
                     direction="top"
                   />
@@ -247,6 +217,6 @@ export function KPIBlock({ }: Props) {
           </GlareHover>
         </div>
       </section>
-    </motion.div>
+    </div>
   )
 }

@@ -15,7 +15,7 @@ export function AdvantagesListBlock({ }: Props) {
         'max-w-[var(--breakpoint-1_5xl)] 1_5xl:mx-auto overflow-hidden',
         'py-[80px] px-[18px]',
         'md:px-[24px]',
-        'xl:px-[0px] xl:py-[180px]',
+        'xl:px-[0px] xl:py-[120px]',
       )}
     >
       <ul

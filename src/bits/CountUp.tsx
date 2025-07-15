@@ -1,11 +1,15 @@
-import { useInView, useMotionValue, useSpring } from 'motion/react';
-import { useEffect, useRef } from 'react';
+import {
+  useInView,
+  useMotionValue,
+  useSpring,
+} from "framer-motion"; // или motion/react
+import React, { useRef, useEffect, memo, useMemo, useState } from "react";
 
 interface CountUpProps {
   to: number;
   from?: number;
   direction?: "up" | "down";
-  delay?: number;
+  delay?: number; // seconds
   duration?: number;
   className?: string;
   startWhen?: boolean;
@@ -14,7 +18,7 @@ interface CountUpProps {
   onEnd?: () => void;
 }
 
-export function CountUp({
+export const CountUp = memo(function CountUp({
   to,
   from = 0,
   direction = "up",
@@ -29,80 +33,91 @@ export function CountUp({
   const ref = useRef<HTMLSpanElement>(null);
   const motionValue = useMotionValue(direction === "down" ? to : from);
 
-  const damping = 20 + 40 * (1 / duration);
-  const stiffness = 100 * (1 / duration);
+  const damping = useMemo(() => 20 + 40 * (1 / duration), [duration]);
+  const stiffness = useMemo(() => 100 * (1 / duration), [duration]);
+  const springValue = useSpring(motionValue, { damping, stiffness });
 
-  const springValue = useSpring(motionValue, {
-    damping,
-    stiffness,
-  });
-
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const isInView = useInView(ref, { once: true, margin: "0px" });
+  const [isStarted, setIsStarted] = useState(false);
 
+  // Мемоизированный number formatter: отключаем useGrouping если separator пустой
+  const numberFormatter = useMemo(
+    () =>
+      new Intl.NumberFormat("en-US", {
+        useGrouping: !!separator,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }),
+    [separator]
+  );
+
+  // Очищаем и скрываем до старта
   useEffect(() => {
     if (ref.current) {
-      ref.current.textContent = String(direction === "down" ? to : from);
+      ref.current.textContent = "";
     }
+    setIsStarted(false);
   }, [from, to, direction]);
 
+  // Запуск анимации строго после delay
   useEffect(() => {
     if (isInView && startWhen) {
-      if (typeof onStart === "function") {
-        onStart();
-      }
+      if (onStart) onStart();
 
-      const timeoutId = setTimeout(() => {
+      const t1 = setTimeout(() => {
+        setIsStarted(true);
         motionValue.set(direction === "down" ? from : to);
       }, delay * 1000);
+      timers.current.push(t1);
 
-      const durationTimeoutId = setTimeout(
-        () => {
-          if (typeof onEnd === "function") {
-            onEnd();
-          }
-        },
-        delay * 1000 + duration * 1000
-      );
+      const t2 = setTimeout(() => {
+        if (onEnd) onEnd();
+      }, delay * 1000 + duration * 1000);
+      timers.current.push(t2);
 
       return () => {
-        clearTimeout(timeoutId);
-        clearTimeout(durationTimeoutId);
+        timers.current.forEach(clearTimeout);
+        timers.current = [];
       };
     }
   }, [
     isInView,
     startWhen,
-    motionValue,
     direction,
     from,
     to,
     delay,
+    duration,
     onStart,
     onEnd,
-    duration,
+    motionValue,
   ]);
 
+  // Обновляем DOM по значению springValue
   useEffect(() => {
+    if (!isStarted) return;
     const unsubscribe = springValue.on("change", (latest) => {
       if (ref.current) {
-        const options = {
-          useGrouping: !!separator,
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0,
-        };
-
-        const formattedNumber = Intl.NumberFormat("en-US", options).format(
-          Number(latest.toFixed(0))
-        );
-
-        ref.current.textContent = separator
-          ? formattedNumber.replace(/,/g, separator)
-          : formattedNumber;
+        let formatted = numberFormatter.format(Number(latest.toFixed(0)));
+        if (separator) {
+          formatted = formatted.replace(/,/g, separator);
+        }
+        ref.current.textContent = formatted;
       }
     });
-
     return () => unsubscribe();
-  }, [springValue, separator]);
+  }, [springValue, numberFormatter, separator, isStarted]);
 
-  return <span className={`${className}`} ref={ref} />;
-}
+  return (
+    <span
+      ref={ref}
+      className={className}
+      style={{
+        opacity: isStarted ? 1 : 0,
+        transition: "opacity 0.25s cubic-bezier(.4,0,.2,1)",
+        display: "inline-block",
+      }}
+    />
+  );
+});

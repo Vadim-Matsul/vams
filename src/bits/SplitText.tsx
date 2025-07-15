@@ -4,7 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
 import { cn } from '@/utils/cn';
 
-
 export interface SplitTextProps {
   text: string | ReactNode;
   className?: string;
@@ -14,12 +13,30 @@ export interface SplitTextProps {
   splitType?: "chars" | "words" | "lines" | "words, chars";
   from?: gsap.TweenVars;
   to?: gsap.TweenVars;
-  threshold?: number;
+  threshold?: number; // 0 = сразу, 1 = весь элемент должен быть в окне
   rootMargin?: string;
   textAlign?: React.CSSProperties["textAlign"];
   onLetterAnimationComplete?: () => void;
+  playOnce?: boolean; // <--- Новый параметр
 }
+
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
+
+function useThresholdVisible(ref: React.RefObject<HTMLElement>, threshold = 0.1) {
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!ref.current) return;
+    const observer = new window.IntersectionObserver(
+      ([entry]) => setVisible(entry.intersectionRatio >= threshold),
+      { threshold: Array.from({ length: 10 }, (_, i) => i / 10) }
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [ref, threshold]);
+
+  return visible;
+}
 
 export function SplitText({
   text,
@@ -34,18 +51,30 @@ export function SplitText({
   rootMargin = "-100px",
   textAlign = "center",
   onLetterAnimationComplete,
+  playOnce = true, // <--- По умолчанию "один раз"
 }: SplitTextProps) {
   const ref = useRef<HTMLParagraphElement>(null);
-  const animationCompletedRef = useRef(false);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
 
+  // --- Локальное состояние "уже проиграна"
+  const hasPlayedOnce = useRef(false);
+
+  // @ts-expect-error "_"
+  const thresholdVisible = useThresholdVisible(ref, threshold);
+
   useEffect(() => {
-    if (typeof window === "undefined" || !ref.current || !text) return;
+    if (
+      typeof window === "undefined" ||
+      !ref.current ||
+      !text ||
+      !thresholdVisible
+    )
+      return;
+
+    // Если playOnce и уже проиграна, НЕ запускаем снова
+    if (playOnce && hasPlayedOnce.current) return;
 
     const el = ref.current;
-
-    animationCompletedRef.current = false;
-
     const absoluteLines = splitType === "lines";
     if (absoluteLines) el.style.position = "relative";
 
@@ -61,19 +90,12 @@ export function SplitText({
       return;
     }
 
-    let targets: Element[];
+    let targets: Element[] = [];
     switch (splitType) {
-      case "lines":
-        targets = splitter.lines;
-        break;
-      case "words":
-        targets = splitter.words;
-        break;
-      case "chars":
-        targets = splitter.chars;
-        break;
-      default:
-        targets = splitter.chars;
+      case "lines": targets = splitter.lines; break;
+      case "words": targets = splitter.words; break;
+      case "chars": targets = splitter.chars; break;
+      default: targets = splitter.chars;
     }
 
     if (!targets || targets.length === 0) {
@@ -86,12 +108,16 @@ export function SplitText({
       (t as HTMLElement).style.willChange = "transform, opacity";
     });
 
-    const startPct = (1 - threshold) * 100;
+    gsap.set(el, { visibility: "visible" });
+    gsap.set(targets, { ...from });
+
     const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
     const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
     const marginUnit = marginMatch ? (marginMatch[2] || "px") : "px";
-    const sign = marginValue < 0 ? `-=${Math.abs(marginValue)}${marginUnit}` : `+=${marginValue}${marginUnit}`;
-    const start = `top ${startPct}%${sign}`;
+    const start =
+      marginValue !== 0
+        ? `top bottom${marginValue > 0 ? `+=${marginValue}${marginUnit}` : `-=${Math.abs(marginValue)}${marginUnit}`}`
+        : "top bottom";
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -105,7 +131,8 @@ export function SplitText({
       },
       smoothChildTiming: true,
       onComplete: () => {
-        animationCompletedRef.current = true;
+        // Запоминаем что проиграли (для playOnce)
+        hasPlayedOnce.current = true;
         gsap.set(targets, {
           ...to,
           clearProps: "willChange",
@@ -115,7 +142,6 @@ export function SplitText({
       },
     });
 
-    tl.set(targets, { ...from, immediateRender: false, force3D: true });
     tl.to(targets, {
       ...to,
       duration,
@@ -135,6 +161,7 @@ export function SplitText({
         splitter.revert();
       }
     };
+
   }, [
     text,
     delay,
@@ -146,6 +173,8 @@ export function SplitText({
     threshold,
     rootMargin,
     onLetterAnimationComplete,
+    thresholdVisible,
+    playOnce, // <-- Следим за этим параметром
   ]);
 
   return (
@@ -157,9 +186,10 @@ export function SplitText({
       style={{
         textAlign,
         wordWrap: "break-word",
+        visibility: "hidden",
       }}
     >
       {text}
     </p>
   );
-};
+}

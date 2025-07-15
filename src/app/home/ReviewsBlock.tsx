@@ -8,8 +8,6 @@ import { ScrollShadow } from '@/ui/scroll_shadow';
 import { ParallaxCard } from '@/ui/ParallaxCard';
 import { GlareHover } from '@/bits/GlareHover';
 import { SplitText } from '@/bits/SplitText';
-import { useEffect, useRef, useState } from 'react';
-import { useInView, useScroll, useTransform, motion } from 'motion/react';
 
 const reviews_config = [
   {
@@ -48,34 +46,10 @@ const options = {
 } as const;
 
 export function ReviewsBlock() {
-  const ref = useRef<HTMLDivElement>(null)
-  const { scrollY } = useScroll()
-  const [scrollRange, setScrollRange] = useState([0, 0])
-  const [marginRange, setMarginRange] = useState([0, 0])
-  const marginTop = useTransform(
-    scrollY,
-    scrollRange,
-    marginRange
-  )
-
-  const isInView = useInView(ref, { amount: 0.1 })
-
-  useEffect(() => {
-    if (!isInView) {
-      setScrollRange([0, 0])
-      setMarginRange([0, 0])
-      return;
-    };
-
-    setScrollRange([window.scrollY, window.scrollY + 600])
-    setMarginRange([0, -(window.innerHeight * 0.6)])
-  }, [isInView])
 
   return (
-    <motion.div
-      ref={ref}
+    <div
       style={{
-        marginTop,
         background: 'linear-gradient(158.29deg, #006B5B 5.78%, #02251F 79.69%)',
       }}
       className='overflow-hidden relative'
@@ -136,6 +110,7 @@ export function ReviewsBlock() {
                     <SplitText
                       {...options}
                       duration={1}
+                      threshold={0.7}
                       splitType='words'
                       text={slide.title}
                     />
@@ -231,7 +206,7 @@ export function ReviewsBlock() {
           'max-w-[var(--breakpoint-1_5xl)] 1_5xl:mx-auto',
           'rounded-[8px]',
           'pt-[120px] pb-[180px]',
-          '1_5xl:px-[120px]'
+          '1_5xl:px-[100px]'
         )}
       >
         <div className="pointer-events-none absolute z-0"
@@ -264,13 +239,15 @@ export function ReviewsBlock() {
           <SplitText
             {...options}
             duration={1}
+            threshold={0.3}
             text='Отзывы'
           />
         </h2>
 
         <div
           className={cn(
-            "z-3 flex mx-auto flex-row justify-center items-start gap-[16px] w-full max-w-[1202px] min-h-[618px]",
+            "z-3 flex mx-auto flex-row justify-center items-start gap-[16px] w-full",
+            'max-w-[1202px] min-h-[618px]',
             "flex-wrap"
           )}
         >
@@ -290,7 +267,6 @@ export function ReviewsBlock() {
                   transitionDuration={400}
                   playOnce={true}
                 >
-
                   <div
                     className={cn(
                       "flex flex-col items-center justify-between",
@@ -304,6 +280,7 @@ export function ReviewsBlock() {
                       <h3 className="font-unbounded font-medium text-[24px] leading-[110%] text-[#F0F4F9] text-center w-full h-[78px] mb-0">
                         <SplitText
                           {...options}
+                          threshold={0.3}
                           text={review.title}
                         />
                       </h3>
@@ -340,6 +317,6 @@ export function ReviewsBlock() {
           ))}
         </div>
       </section>
-    </motion.div>
+    </div>
   );
 }

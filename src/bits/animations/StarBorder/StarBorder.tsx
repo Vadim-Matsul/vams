@@ -27,13 +27,14 @@ export const StarBorder = <T extends React.ElementType = 'button'>({
   const Component = as || 'button';
 
   return (
+    // @ts-expect-error "_"
     <Component
+      {...(rest)}
       className={cn(
         'w-full h-full',
         'relative inline-block overflow-hidden rounded-[20px]',
         className,
       )}
-      {...(rest)}
       style={{
         padding: `${thickness}px 0`,
         ...(rest).style,

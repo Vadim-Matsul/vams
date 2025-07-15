@@ -255,6 +255,7 @@ export function Header({ }: Props) {
               <AnimatePresence>
                 {isOpen && pageLinksArr.map((item, idx) => (
                   <motion.li
+                    onClick={() => setIsOpen(false)}
                     key={item.key}
                     initial={{ opacity: 0, x: 60 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -271,6 +272,28 @@ export function Header({ }: Props) {
             <div
             // className='bg-red-500'
             >
+              <div className='h-[44px] px-5 mb-8'>
+                <a
+                  href={'#' + homeBlockIDs.CONTACT_FORM}
+                  onClick={() => setIsOpen(false)}
+                  className={cn(
+                    'bg-transparent text-custom-brand-100',
+                    'w-full h-full rounded-[90px]',
+                    'border-[1px] border-custom-brand-100',
+                    'flex items-center justify-center',
+                  )}
+                >
+                  <p
+                    className={cn(
+                      'font-geist font-semibold leading-none',
+                      'text-[16px]'
+                    )}
+                  >
+                    Запросить консультацию
+                  </p>
+                </a>
+              </div>
+
               <div
                 className='w-full h-px bg-black/60'
               />

@@ -96,7 +96,7 @@ export function StepperBlock({ }: Props) {
     window.addEventListener('resize', checkIntersection)
 
     checkIntersection()
-    setTimeout(checkIntersection, 16)
+    setTimeout(checkIntersection, 64)
 
     return () => {
       window.removeEventListener("scroll", checkIntersection);
@@ -269,14 +269,13 @@ export function StepperBlock({ }: Props) {
                   <BlurText
                     text={step.desc}
                     delay={40}
+                    threshold={0}
                     animateBy="words"
                     direction="top"
-                    onAnimationComplete={() => { }}
                   />
                 </AnimatedDescHeight>
               </div>
             </div>
-
           )
         })}
 
@@ -284,7 +283,7 @@ export function StepperBlock({ }: Props) {
         <div
           key='line'
           className={cn(
-            'absolute inset-0 z-[1]'
+            'absolute inset-0 z-[1]',
           )}
         >
           <div
@@ -302,22 +301,51 @@ export function StepperBlock({ }: Props) {
 }
 
 
-export function AnimatedDescHeight({ show, children, className }: {
-  show: boolean;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState(0);
+import { useCallback } from 'react'
 
-  useLayoutEffect(() => {
-    if (ref.current) {
-      setHeight(ref.current.scrollHeight);
+type AnimatedDescHeightProps = {
+  show: boolean
+  children: React.ReactNode
+  className?: string
+}
+
+export function AnimatedDescHeight({ show, children, className }: AnimatedDescHeightProps) {
+  const innerRef = useRef<HTMLDivElement>(null)
+  const [height, setHeight] = useState(0)
+
+  // Мемоизированный коллбэк для установки высоты (без перезаписи ссылки)
+  const measureHeight = useCallback(() => {
+    if (innerRef.current) {
+      setHeight(innerRef.current.scrollHeight)
     }
-  }, [show, children]);
+  }, [])
+
+  // Высота рассчитывается при маунте, изменении show или children
+  useLayoutEffect(() => {
+    if (show) measureHeight()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show, children])
+
+  // Пересчитываем высоту при изменении размеров контента (например, изображение загружается)
+  useLayoutEffect(() => {
+    if (!show) return
+    const el = innerRef.current
+    if (!el) return
+
+    let resizeObserver: ResizeObserver | undefined
+
+    if ('ResizeObserver' in window) {
+      resizeObserver = new ResizeObserver(measureHeight)
+      resizeObserver.observe(el)
+    }
+    return () => {
+      resizeObserver?.disconnect()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show, children])
 
   return (
-    <AnimatePresence initial={show} mode='sync'>
+    <AnimatePresence initial={false} mode='sync'>
       {show && (
         <motion.div
           initial={{ height: 0, marginTop: 0, opacity: 0 }}
@@ -327,9 +355,12 @@ export function AnimatedDescHeight({ show, children, className }: {
           style={{ overflow: 'hidden' }}
           className={className}
         >
-          <div ref={ref}>{children}</div>
+          <div ref={innerRef}>
+            {children}
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
-  );
+  )
 }
+
