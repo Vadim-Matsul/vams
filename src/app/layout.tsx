@@ -4,6 +4,7 @@ import 'swiper/css';
 import '../style/globals.css';
 import 'normalize.css'
 import { cn } from '@/utils/cn';
+import { Providers } from './providers';
 
 const unboundedFont = Unbounded({
   variable: '--font-unbounded',
@@ -38,7 +39,9 @@ export default function RootLayout({
           'antialiased bg-custom-white-100'
         )}
       >
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

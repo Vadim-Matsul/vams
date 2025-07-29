@@ -9,6 +9,8 @@ import { homeBlockIDs } from '@/configs/homeBlockIds';
 import Lottie from 'lottie-react';
 import LottieSuccessJSON from '../../../public/lottie/lottie_success.json';
 import { AnimatePresence, motion } from 'motion/react';
+import { trpc } from '@/utils/trpc';
+import z from 'zod';
 
 type Props = {}
 
@@ -27,7 +29,7 @@ type FormValues = {
 };
 
 export function ContactForm({ }: Props) {
-  // const sendContactFormMutation = trpc.sendContactForm.useMutation();
+  const sendContactFormMutation = trpc.sendContact.sendContactForm.useMutation();
 
   const {
     handleSubmit,
@@ -45,23 +47,21 @@ export function ContactForm({ }: Props) {
   });
 
   const onSubmit = (data: FormValues) => {
-    // sendContactFormMutation.mutate({
-    //   name: data.name,
-    //   phone: data.phone,
-    //   agreeMarketing: data.agreeMarketing,
-    //   agreePolitics: data.agreePolitics,
-    //   contactType: {
-    //     call: data.contactType.includes('call'),
-    //     telegram: data.contactType.includes('telegram'),
-    //     whatsapp: data.contactType.includes('whatsapp'),
-    //   }
-    // })
+    sendContactFormMutation.mutate({
+      name: data.name,
+      phone: data.phone,
+      agreeMarketing: data.agreeMarketing,
+      agreePolitics: data.agreePolitics,
+      contactType: {
+        call: data.contactType.includes('call'),
+        telegram: data.contactType.includes('telegram'),
+        whatsapp: data.contactType.includes('whatsapp'),
+      }
+    })
   };
 
-  const isSuccess = false;
-  // sendContactFormMutation.isSuccess;
-  const isPending = false;
-  // sendContactFormMutation.isPending;
+  const isSuccess = sendContactFormMutation.isSuccess;
+  const isPending = sendContactFormMutation.isPending;
   const disableSubmitBtn = !isValid || isPending;
 
   const Title = <p
