@@ -37,7 +37,7 @@ const options = {
   delay: 30,
   duration: 0.5,
   ease: "power3.out",
-  splitType: "chars",
+  splitType: "words",
   from: { opacity: 0, y: 20 },
   to: { opacity: 1, y: 0 },
   threshold: 0,
@@ -144,10 +144,15 @@ export function ReviewsBlock() {
                 >
                   <Image
                     width={45}
-                    height={45} sizes='full'
+                    height={45}
+                    sizes='full'
                     src={slide.img}
                     quality={100}
-                    className='rounded-full object-cover'
+                    draggable={false}
+                    className={cn(
+                      'rounded-full object-cover select-none',
+                      'min-w-[45px] max-w-[45px] w-[45px] min-h-[45px] max-h-[45px] h-[45px]',
+                    )}
                     alt={slide.name}
                   />
                   <div className="flex flex-col justify-center">
@@ -261,11 +266,11 @@ export function ReviewsBlock() {
               <ParallaxCard>
                 <GlareHover
                   glareColor="#ffffff"
-                  glareOpacity={0.3}
+                  glareOpacity={0.4}
                   glareAngle={-30}
-                  glareSize={200}
-                  transitionDuration={400}
-                  playOnce={true}
+                  glareSize={300}
+                  transitionDuration={2000}
+                  playOnce={false}
                 >
                   <div
                     className={cn(
@@ -303,7 +308,11 @@ export function ReviewsBlock() {
                         quality={100}
                         sizes='full'
                         alt={review.name}
-                        className="rounded-full object-cover border border-black"
+                        draggable={false}
+                        className={cn(
+                          "rounded-full object-cover border border-black select-none",
+                          'min-w-[45px] max-w-[45px] w-[45px] min-h-[45px] max-h-[45px] h-[45px]',
+                        )}
                       />
                       <div className="flex flex-col justify-center w-[272.33px] h-[48px]">
                         <span className="font-geist font-medium text-[18px] leading-[136%] text-[#F0F4F9]">{review.name}</span>

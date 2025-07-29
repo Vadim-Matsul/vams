@@ -44,8 +44,8 @@ export function AdvantagesListBlock({ }: Props) {
                 glareOpacity={1}
                 glareAngle={-30}
                 glareSize={300}
-                transitionDuration={800}
-                playOnce={true}
+                transitionDuration={2600}
+                playOnce={false}
               >
                 <div
                   className={cn(
@@ -107,9 +107,10 @@ export function AdvantagesListBlock({ }: Props) {
                   >
                     <Image
                       src='/images/advantage_smart.png'
-                      alt={'Smart-аналитика'} sizes='full'
+                      alt={'Smart-аналитика'}
                       fill quality={100}
                       draggable={false}
+                      sizes='full'
                       className='select-none'
                     />
                   </div>
@@ -139,8 +140,8 @@ export function AdvantagesListBlock({ }: Props) {
                 glareOpacity={1}
                 glareAngle={-30}
                 glareSize={300}
-                transitionDuration={800}
-                playOnce={true}
+                transitionDuration={2600}
+                playOnce={false}
               >
                 <div
                   className={cn(
@@ -234,8 +235,8 @@ export function AdvantagesListBlock({ }: Props) {
                 glareOpacity={1}
                 glareAngle={-30}
                 glareSize={300}
-                transitionDuration={800}
-                playOnce={true}
+                transitionDuration={2600}
+                playOnce={false}
               >
                 <div
                   className={cn(
@@ -330,8 +331,8 @@ export function AdvantagesListBlock({ }: Props) {
                 glareOpacity={1}
                 glareAngle={-30}
                 glareSize={300}
-                transitionDuration={800}
-                playOnce={true}
+                transitionDuration={2600}
+                playOnce={false}
               >
                 <div
                   className={cn(

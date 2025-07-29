@@ -1,16 +1,20 @@
 import { cn } from '@/utils/cn';
-import React, { ReactNode } from "react";
+import React, { ReactNode, useMemo } from "react";
 
 
 type Props = {
   children: ReactNode;
+  displacementScale?: number;
   className?: string;
+  blur?: number;
 }
 
-export function LiquidGlass({ children, className }: Props) {
+export function LiquidGlass({ children, className, displacementScale = 70, blur = 0 }: Props) {
+  const id = useMemo(() => crypto.randomUUID(), []);
   return (
     <div
       className={cn(
+        // "backdrop-blur-[5px]",
         "relative w-full h-full overflow-hidden shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]",
         className
       )}
@@ -21,8 +25,8 @@ export function LiquidGlass({ children, className }: Props) {
           absolute inset-0 z-0
         "
         style={{
-          backdropFilter: "blur(0px)",
-          filter: "url(#lg-dist)",
+          backdropFilter: `blur(${blur}px)`,
+          filter: `url(#${id})`,
           isolation: "isolate"
         }}
       />
@@ -49,7 +53,7 @@ export function LiquidGlass({ children, className }: Props) {
 
       {/* SVG фильтр (важно! только один раз на страницу!) */}
       <svg style={{ display: "none" }}>
-        <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
+        <filter id={id} x="0%" y="0%" width="100%" height="100%">
           <feTurbulence
             type="fractalNoise"
             baseFrequency="0.008 0.008"
@@ -57,11 +61,13 @@ export function LiquidGlass({ children, className }: Props) {
             seed="92"
             result="noise"
           />
+
           <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+
           <feDisplacementMap
             in="SourceGraphic"
             in2="blurred"
-            scale="70"
+            scale={String(displacementScale)}
             xChannelSelector="R"
             yChannelSelector="G"
           />

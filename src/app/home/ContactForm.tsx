@@ -6,6 +6,9 @@ import { useForm, Controller } from 'react-hook-form';
 import { CustomCheckbox } from '@/ui/checkbox/CustomCheckbox';
 import { Fragment, useState } from 'react';
 import { homeBlockIDs } from '@/configs/homeBlockIds';
+import Lottie from 'lottie-react';
+import LottieSuccessJSON from '../../../public/lottie/lottie_success.json';
+import { AnimatePresence, motion } from 'motion/react';
 
 type Props = {}
 
@@ -19,12 +22,13 @@ type FormValues = {
   name: string;
   phone: string;
   contactType: (typeof contactOptions[number]['value'])[];
-  agreePersonal: boolean;
+  agreePolitics: boolean;
   agreeMarketing: boolean;
 };
 
 export function ContactForm({ }: Props) {
-  const [isLoading, setIsLoading] = useState(false)
+  // const sendContactFormMutation = trpc.sendContactForm.useMutation();
+
   const {
     handleSubmit,
     control,
@@ -35,17 +39,30 @@ export function ContactForm({ }: Props) {
       name: '',
       phone: '',
       contactType: [],
-      agreePersonal: false,
-      agreeMarketing: false,
+      agreePolitics: false,
+      agreeMarketing: true,
     },
   });
 
   const onSubmit = (data: FormValues) => {
-    console.log('Form data:', data);
-    // Отправка данных
+    // sendContactFormMutation.mutate({
+    //   name: data.name,
+    //   phone: data.phone,
+    //   agreeMarketing: data.agreeMarketing,
+    //   agreePolitics: data.agreePolitics,
+    //   contactType: {
+    //     call: data.contactType.includes('call'),
+    //     telegram: data.contactType.includes('telegram'),
+    //     whatsapp: data.contactType.includes('whatsapp'),
+    //   }
+    // })
   };
 
-  const disableSubmitBtn = !isValid || isLoading;
+  const isSuccess = false;
+  // sendContactFormMutation.isSuccess;
+  const isPending = false;
+  // sendContactFormMutation.isPending;
+  const disableSubmitBtn = !isValid || isPending;
 
   const Title = <p
     className={cn(
@@ -82,6 +99,7 @@ export function ContactForm({ }: Props) {
           onChange={onChange}
           onBlur={onBlur}
           data-error={Boolean(errors.name)}
+          disabled={isPending}
           className={cn(
             cn(
               'bg-white',
@@ -101,6 +119,9 @@ export function ContactForm({ }: Props) {
             '',
             cn(
               'data-[error=true]:border-[1px] data-[error=true]:border-error'
+            ),
+            cn(
+              'disabled:opacity-50'
             ),
             'w-full h-[52px]',
           )}
@@ -125,6 +146,7 @@ export function ContactForm({ }: Props) {
           inputRef={ref}
           onAccept={onChange}
           onBlur={onBlur}
+          disabled={isPending}
           data-error={Boolean(errors.phone)}
           unmask={false}
           inputMode="tel"
@@ -148,6 +170,9 @@ export function ContactForm({ }: Props) {
             '',
             cn(
               'data-[error=true]:border-[1px] data-[error=true]:border-error'
+            ),
+            cn(
+              'disabled:opacity-50'
             ),
             'w-full h-[52px]',
           )}
@@ -174,7 +199,7 @@ export function ContactForm({ }: Props) {
         <>
           {contactOptions.map(option => {
             const checked = field.value.includes(option.value);
-            const disabled = false || field.disabled;
+            const disabled = field.disabled || isPending;
             const error = Boolean(errors.contactType)
 
             return (
@@ -253,9 +278,9 @@ export function ContactForm({ }: Props) {
         cn(
           'hover:scale-[.95]'
         ),
-        isLoading
+        isPending
           ? cn(
-            'disabled:hover:scale-[1] disabled:focus:scale-[1]'
+            'disabled:hover:scale-[1] disabled:focus:scale-[1] disabled:cursor-auto'
           )
           : cn(
             'disabled:cursor-auto',
@@ -268,7 +293,7 @@ export function ContactForm({ }: Props) {
         className={cn(
           'font-geist ',
           'text-[18px]',
-          isLoading ? cn(
+          isPending ? cn(
             'text-white'
           ) : (
             disableSubmitBtn ? 'text-custom-grey-200' : 'text-white'
@@ -278,7 +303,7 @@ export function ContactForm({ }: Props) {
         Свяжитесь со мной
       </p>
 
-      {isLoading && (
+      {isPending && (
         <Fragment key='shimmer'>
           <div
             key='loading shimmer'
@@ -322,7 +347,7 @@ export function ContactForm({ }: Props) {
     )}
   >
     <div
-      key='agreePersonal'
+      key='agreePolitics'
       className={cn(
         'flex',
         'gap-[14px]',
@@ -330,13 +355,13 @@ export function ContactForm({ }: Props) {
       )}
     >
       <Controller
-        name='agreePersonal'
+        name='agreePolitics'
         control={control}
         rules={{ required: true }}
         render={({ field }) => {
           const checked = field.value;
-          const disabled = false || field.disabled;
-          const error = Boolean(errors.agreePersonal)
+          const disabled = field.disabled || isPending;
+          const error = Boolean(errors.agreePolitics)
 
           return (
             <>
@@ -397,7 +422,7 @@ export function ContactForm({ }: Props) {
         control={control}
         render={({ field }) => {
           const checked = field.value;
-          const disabled = false || field.disabled;
+          const disabled = field.disabled || isPending;
 
           return (
             <>
@@ -449,59 +474,80 @@ export function ContactForm({ }: Props) {
         '1_5xl:px-[100px]'
       )}
     >
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className={cn(
-          'mx-auto',
-          '1_5xl:w-[1240px]'
-        )}
-      >
-        <div className='1_5lg:hidden' >
-          {Title}
-          {InputsWrapper}
-          {ContactType}
-          {SubmitButton}
-          {AgreeCheckboxes}
-        </div>
+      <AnimatePresence mode='popLayout'>
+        {!isSuccess && (
+          <motion.form
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            onSubmit={handleSubmit(onSubmit)}
+            className={cn(
+              'mx-auto',
+              '1_5xl:w-[1240px]'
+            )}
+          >
+            <div className='1_5lg:hidden' >
+              {Title}
+              {InputsWrapper}
+              {ContactType}
+              {SubmitButton}
+              {AgreeCheckboxes}
+            </div>
 
-        <div
-          className={cn(
-            'hidden 1_5lg:flex',
-            'flex-row justify-between h-[240px]'
-          )}
-        >
-          <div
-            className={cn(
-              'w-[694px] h-full',
-              'flex flex-col justify-between gap-[32px]'
-            )}
-          >
-            {Title}
-            {InputsWrapper}
-            {AgreeCheckboxes}
-          </div>
-          <div
-            className={cn(
-              'w-[390px] h-full',
-              'flex flex-col justify-between gap-10'
-            )}
-          >
-            <p
+            <div
               className={cn(
-                'font-unbounded font-medium text-custom-brand-200',
-                'text-[20px] leading-[110%]',
+                'hidden 1_5lg:flex',
+                'flex-row justify-between h-[240px]'
               )}
             >
+              <div
+                className={cn(
+                  'w-[694px] h-full',
+                  'flex flex-col justify-between gap-[32px]'
+                )}
+              >
+                {Title}
+                {InputsWrapper}
+                {AgreeCheckboxes}
+              </div>
+              <div
+                className={cn(
+                  'w-[390px] h-full',
+                  'flex flex-col justify-between gap-10'
+                )}
+              >
+                <p
+                  className={cn(
+                    'font-unbounded font-medium text-custom-brand-200',
+                    'text-[20px] leading-[110%]',
+                  )}
+                >
 
-              Предпочтительный<br />
-              способ&nbsp;связи
-            </p>
+                  Предпочтительный<br />
+                  способ&nbsp;связи
+                </p>
 
-            {ContactType}
-            {SubmitButton}
-          </div>
-        </div>
-      </form>
+                {ContactType}
+                {SubmitButton}
+              </div>
+            </div>
+          </motion.form>
+        )}
+      </AnimatePresence>
+      <AnimatePresence mode='popLayout'>
+        {isSuccess && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <Lottie
+              animationData={LottieSuccessJSON}
+              loop={false}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

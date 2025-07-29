@@ -48,6 +48,8 @@ export function IntroBlock({ }: Props) {
         >
           <SplitText
             {...splitText_options}
+            delay={10}
+            duration={0.3}
             className='text-[24px] leading-none md:hidden'
             text={<>
               Премиальная<br />недвижимость<br />с&nbsp;интеллектуальным<br />подходом
@@ -55,6 +57,8 @@ export function IntroBlock({ }: Props) {
           />
           <SplitText
             {...splitText_options}
+            delay={10}
+            duration={0.3}
             className='text-[30px] leading-none hidden md:inline xl:hidden'
             text={<>
               Премиальная&nbsp;недвижимость<br />с&nbsp;интеллектуальным<br />подходом
@@ -62,6 +66,8 @@ export function IntroBlock({ }: Props) {
           />
           <SplitText
             {...splitText_options}
+            delay={10}
+            duration={0.3}
             className='text-[48px] leading-none hidden xl:inline'
             text={<>
               Премиальная&nbsp;недвижимость<br />с&nbsp;интеллектуальным&nbsp;подходом
@@ -130,7 +136,8 @@ export function IntroBlock({ }: Props) {
           )}
         >
           <StarBorder
-            as="button"
+            as="a"
+            href={'#' + homeBlockIDs.CONTACT_FORM}
             color="var(--color-custom-brand-200)"
             speed="3s"
             thickness={1.5}
@@ -250,7 +257,6 @@ function HouseofHorizons1() {
               to={190_890_000}
               separator=" "
               direction="up"
-              delay={duration_time}
               duration={count_duration_time}
               className={cn(
                 'inline-block',
@@ -326,8 +332,8 @@ function HouseofHorizons1() {
 function HouseofHorizons2() {
   const { scrollY } = useScroll()
   const translateY = useTransform(scrollY, [0, 300], [0, -90])
-  const duration_time = 1.2;
-  const count_duration_time = 3;
+  const duration_time = 0.6;
+  const count_duration_time = 1;
 
   return (
     <FadeContent
@@ -366,6 +372,8 @@ function HouseofHorizons2() {
             quality={100}
             sizes='full'
             priority
+            draggable={false}
+            className='select-none'
             style={{ filter: 'grayscale(20%)' }}
             alt='card_town_1.png'
           />
@@ -437,7 +445,6 @@ function HouseofHorizons2() {
                   to={50_000_000}
                   separator=" "
                   direction="down"
-                  delay={duration_time}
                   duration={count_duration_time}
                   className={cn(
                     'whitespace-nowrap inline-block',
@@ -471,7 +478,6 @@ function HouseofHorizons2() {
                   separator=" "
                   direction="up"
                   duration={count_duration_time}
-                  delay={duration_time}
                   className={cn(
                     'whitespace-nowrap inline-block',
                     'w-[13px] min-w-[13px] max-w-[13px]',
@@ -491,11 +497,12 @@ function HouseofHorizons2() {
 function Round19_9() {
   const { scrollY } = useScroll()
   const translateY = useTransform(scrollY, [0, 500], [0, -70])
+  const duration = 0.8;
 
   return (
     <FadeContent
       blur
-      duration={1500}
+      duration={duration * 1000}
       easing="ease-out"
       className='relative z-[5] md:z-[9]'
     >
@@ -728,7 +735,6 @@ function Lavrushensky() {
   const count_duration = 1;
 
   return (
-
     <FadeContent
       blur
       duration={animation_duration * 1000}
@@ -767,6 +773,8 @@ function Lavrushensky() {
             sizes='full'
             quality={100}
             priority
+            draggable={false}
+            className='select-none'
             alt='card_town_1.png'
           />
 
@@ -825,7 +833,6 @@ function Lavrushensky() {
                   separator=" "
                   direction="up"
                   duration={count_duration}
-                  delay={animation_duration}
                   className={cn(
                     'whitespace-nowrap inline-block',
                     'w-[46px] min-w-[46px] max-w-[46px]',
@@ -859,7 +866,6 @@ function Lavrushensky() {
                   separator=" "
                   direction="up"
                   duration={count_duration}
-                  delay={animation_duration}
                   className={cn(
                     'whitespace-nowrap inline-block',
                   )}
@@ -875,10 +881,12 @@ function Lavrushensky() {
 }
 
 function Badge_11_3() {
+  const duration = 0.9;
+
   return (
     <FadeContent
       blur
-      duration={900}
+      duration={duration * 1000}
       easing="ease-out"
       className='z-[9] relative'
     >
@@ -1074,7 +1082,7 @@ function Badge_31_9() {
             to={32}
             separator=" "
             direction="up"
-            duration={10}
+            duration={2}
             className={cn(
               'whitespace-nowrap inline-block text-center',
               'w-[15px] min-w-[15px] max-w-[15px]',
@@ -1101,8 +1109,8 @@ function Badge_31_9() {
 function LuzhnikiCollection() {
   const { scrollY } = useScroll()
   const translateY = useTransform(scrollY, [0, 100], [0, -40])
-  const animation_duration = 0.3;
-  const count_duration = 2;
+  const animation_duration = 0.5;
+  const count_duration = 1.5;
 
   return (
     <FadeContent
@@ -1187,7 +1195,6 @@ function LuzhnikiCollection() {
                 separator=" "
                 direction="up"
                 duration={count_duration}
-                delay={animation_duration}
                 className={cn(
                   'inline-block',
                   "w-[85px] min-w-[85px] max-w-[85px]",
@@ -1442,7 +1449,6 @@ function PhoneBackground() {
   return (
     <section
       className={cn(
-        "hover:scale-[1.15] transition-all",
         'hidden 1_5xl:block',
         'absolute left-[510px] top-[70px]'
       )}
@@ -1470,7 +1476,7 @@ function MyDocuments() {
   return (
     <FadeContent
       blur
-      duration={2400}
+      duration={1400}
       easing="ease-out"
       className='relative z-[2] md:z-[8]'
     >

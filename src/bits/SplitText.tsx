@@ -17,7 +17,7 @@ export interface SplitTextProps {
   rootMargin?: string;
   textAlign?: React.CSSProperties["textAlign"];
   onLetterAnimationComplete?: () => void;
-  playOnce?: boolean; // <--- Новый параметр
+  playOnce?: boolean;
 }
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
@@ -51,14 +51,11 @@ export function SplitText({
   rootMargin = "-100px",
   textAlign = "center",
   onLetterAnimationComplete,
-  playOnce = true, // <--- По умолчанию "один раз"
+  playOnce = true,
 }: SplitTextProps) {
   const ref = useRef<HTMLParagraphElement>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
-
-  // --- Локальное состояние "уже проиграна"
   const hasPlayedOnce = useRef(false);
-
   // @ts-expect-error "_"
   const thresholdVisible = useThresholdVisible(ref, threshold);
 
@@ -74,94 +71,96 @@ export function SplitText({
     // Если playOnce и уже проиграна, НЕ запускаем снова
     if (playOnce && hasPlayedOnce.current) return;
 
-    const el = ref.current;
-    const absoluteLines = splitType === "lines";
-    if (absoluteLines) el.style.position = "relative";
+    // Дождаться загрузки всех шрифтов
+    document.fonts.ready.then(() => {
+      const el = ref.current!;
+      const absoluteLines = splitType === "lines";
+      if (absoluteLines) el.style.position = "relative";
 
-    let splitter: GSAPSplitText;
-    try {
-      splitter = new GSAPSplitText(el, {
-        type: splitType,
-        absolute: absoluteLines,
-        linesClass: "split-line",
-      });
-    } catch (error) {
-      console.error("Failed to create SplitText:", error);
-      return;
-    }
-
-    let targets: Element[] = [];
-    switch (splitType) {
-      case "lines": targets = splitter.lines; break;
-      case "words": targets = splitter.words; break;
-      case "chars": targets = splitter.chars; break;
-      default: targets = splitter.chars;
-    }
-
-    if (!targets || targets.length === 0) {
-      console.warn("No targets found for SplitText animation");
-      splitter.revert();
-      return;
-    }
-
-    targets.forEach((t) => {
-      (t as HTMLElement).style.willChange = "transform, opacity";
-    });
-
-    gsap.set(el, { visibility: "visible" });
-    gsap.set(targets, { ...from });
-
-    const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
-    const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
-    const marginUnit = marginMatch ? (marginMatch[2] || "px") : "px";
-    const start =
-      marginValue !== 0
-        ? `top bottom${marginValue > 0 ? `+=${marginValue}${marginUnit}` : `-=${Math.abs(marginValue)}${marginUnit}`}`
-        : "top bottom";
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: el,
-        start,
-        toggleActions: "play none none none",
-        once: true,
-        onToggle: (self) => {
-          scrollTriggerRef.current = self;
-        },
-      },
-      smoothChildTiming: true,
-      onComplete: () => {
-        // Запоминаем что проиграли (для playOnce)
-        hasPlayedOnce.current = true;
-        gsap.set(targets, {
-          ...to,
-          clearProps: "willChange",
-          immediateRender: true,
+      let splitter: GSAPSplitText;
+      try {
+        splitter = new GSAPSplitText(el, {
+          type: splitType,
+          absolute: absoluteLines,
+          linesClass: "split-line",
         });
-        onLetterAnimationComplete?.();
-      },
-    });
-
-    tl.to(targets, {
-      ...to,
-      duration,
-      ease,
-      stagger: delay / 1000,
-      force3D: true,
-    });
-
-    return () => {
-      tl.kill();
-      if (scrollTriggerRef.current) {
-        scrollTriggerRef.current.kill();
-        scrollTriggerRef.current = null;
+      } catch (error) {
+        console.error("Failed to create SplitText:", error);
+        return;
       }
-      gsap.killTweensOf(targets);
-      if (splitter) {
+
+      let targets: Element[] = [];
+      switch (splitType) {
+        case "lines": targets = splitter.lines; break;
+        case "words": targets = splitter.words; break;
+        case "chars": targets = splitter.chars; break;
+        default: targets = splitter.chars;
+      }
+
+      if (!targets || targets.length === 0) {
+        console.warn("No targets found for SplitText animation");
         splitter.revert();
+        return;
       }
-    };
 
+      targets.forEach((t) => {
+        (t as HTMLElement).style.willChange = "transform, opacity";
+      });
+
+      gsap.set(el, { visibility: "visible" });
+      gsap.set(targets, { ...from });
+
+      const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
+      const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
+      const marginUnit = marginMatch ? (marginMatch[2] || "px") : "px";
+      const start =
+        marginValue !== 0
+          ? `top bottom${marginValue > 0 ? `+=${marginValue}${marginUnit}` : `-=${Math.abs(marginValue)}${marginUnit}`}`
+          : "top bottom";
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start,
+          toggleActions: "play none none none",
+          once: true,
+          onToggle: (self) => {
+            scrollTriggerRef.current = self;
+          },
+        },
+        smoothChildTiming: true,
+        onComplete: () => {
+          hasPlayedOnce.current = true;
+          gsap.set(targets, {
+            ...to,
+            clearProps: "willChange",
+            immediateRender: true,
+          });
+          onLetterAnimationComplete?.();
+        },
+      });
+
+      tl.to(targets, {
+        ...to,
+        duration,
+        ease,
+        stagger: delay / 1000,
+        force3D: true,
+      });
+
+      // Clean up
+      return () => {
+        tl.kill();
+        if (scrollTriggerRef.current) {
+          scrollTriggerRef.current.kill();
+          scrollTriggerRef.current = null;
+        }
+        gsap.killTweensOf(targets);
+        if (splitter) {
+          splitter.revert();
+        }
+      };
+    });
   }, [
     text,
     delay,
@@ -174,7 +173,7 @@ export function SplitText({
     rootMargin,
     onLetterAnimationComplete,
     thresholdVisible,
-    playOnce, // <-- Следим за этим параметром
+    playOnce,
   ]);
 
   return (

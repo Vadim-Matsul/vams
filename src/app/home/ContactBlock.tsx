@@ -27,8 +27,8 @@ export function ContactBlock() {
         glareOpacity={1}
         glareAngle={-30}
         glareSize={300}
-        transitionDuration={1800}
-        playOnce={true}
+        transitionDuration={2800}
+        playOnce={false}
         className='h-full min-h-full'
       >
         <section

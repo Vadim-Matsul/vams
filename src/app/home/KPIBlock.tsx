@@ -32,6 +32,7 @@ export function KPIBlock({ }: Props) {
           src='/images/kpi_towns.png'
           quality={100}
           draggable={false}
+          sizes='full'
           alt='kpi_towns'
           className='select-none object-cover'
         />
@@ -57,14 +58,15 @@ export function KPIBlock({ }: Props) {
           )}
         >
           <GlareHover
-            glareColor="#ffffff"
+            glareColor="#ffffffB3"
             glareOpacity={0.7}
-            glareAngle={-30}
-            glareSize={300}
-            transitionDuration={800}
+            glareAngle={-10}
+            glareSize={200}
+            transitionDuration={1600}
             playOnce={false}
           >
-            <LiquidGlass>
+            <LiquidGlass
+            >
               <div
                 className={cn(
                   'flex flex-col w-full h-full ',
@@ -142,11 +144,11 @@ export function KPIBlock({ }: Props) {
           )}
         >
           <GlareHover
-            glareColor="#ffffff"
+            glareColor="#ffffffB3"
             glareOpacity={0.7}
-            glareAngle={-30}
-            glareSize={300}
-            transitionDuration={800}
+            glareAngle={-10}
+            glareSize={200}
+            transitionDuration={1600}
             playOnce={false}
           >
             <LiquidGlass>

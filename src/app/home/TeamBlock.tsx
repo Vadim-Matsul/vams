@@ -348,7 +348,9 @@ function TeamPerson({ person }: { person: typeof team_config[number] }) {
             fill
             alt={person.name}
             src={person.img}
-            className='object-cover'
+            draggable={false}
+            sizes='full'
+            className='object-cover select-none'
           />
         </div>
 
@@ -405,7 +407,7 @@ function TeamPerson({ person }: { person: typeof team_config[number] }) {
                 </motion.svg>
               </div>
 
-              <p
+              <div
                 className={cn(
                   'font-geist font-medium text-[#E3EDF2] leading-[130%]',
                   'text-[16px]',
@@ -419,7 +421,7 @@ function TeamPerson({ person }: { person: typeof team_config[number] }) {
                   direction="top"
                   onAnimationComplete={() => { }}
                 />
-              </p>
+              </div>
             </motion.section>
           )}
         </AnimatePresence>

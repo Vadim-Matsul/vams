@@ -95,7 +95,7 @@ export function BlurText({
   );
 
   return (
-    <p ref={ref} className={`blur-text ${className} flex flex-wrap`}>
+    <span ref={ref} className={`blur-text ${className} flex flex-wrap`}>
       {elements.map((segment, index) => {
         const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots);
 
@@ -125,6 +125,6 @@ export function BlurText({
           </motion.span>
         );
       })}
-    </p>
+    </span>
   );
 };

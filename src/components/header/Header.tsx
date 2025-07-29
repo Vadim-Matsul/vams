@@ -96,6 +96,8 @@ export function Header({ }: Props) {
           )}
         >
           <LiquidGlass
+            blur={10}
+            displacementScale={300}
           >
             <div
               className={cn(
@@ -223,19 +225,28 @@ export function Header({ }: Props) {
       </header>
 
       <Drawer.Root
+        aria-describedby='навигация'
         direction='right'
         open={isOpen}
         onClose={() => setIsOpen(false)}
         disablePreventScroll
       >
         <Drawer.Overlay
+          aria-describedby='навигация'
+
           onClick={() => setIsOpen(false)}
           className='absolute inset-0 z-[20] bg-white/5 backdrop-blur-[3px]'
         />
-        <Drawer.Title />
+        <Drawer.Title
+          aria-describedby='навигация'
+        />
 
-        <Drawer.Portal>
+        <Drawer.Portal
+
+          aria-describedby='навигация'
+        >
           <Drawer.Content
+            aria-describedby='навигация'
             style={{
               boxShadow: `
                 -4px 0px 10px 0px rgba(53, 53, 53, 0.05),
