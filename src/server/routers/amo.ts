@@ -20,14 +20,18 @@ export const amoRouter = router({
     .mutation(async ({ input }) => {
       console.log(input);
       const { name, ...custom_fields_values } = input;
-      const response = await amoRequest('/api/v4/contacts', 'POST', [
-        {
-          name,
-          custom_fields_values,
-        },
-      ]);
 
-      console.log({ response });
-      return { test: true };
+      try {
+        const response = await amoRequest('/contacts', 'POST', [
+          {
+            name,
+            custom_fields_values,
+          },
+        ]);
+        return response;
+      } catch (err) {
+        console.error(`Ошибка addContact`, err);
+        throw new Error('unknown error');
+      }
     }),
 });
