@@ -1,8 +1,8 @@
 import { router } from './trpc';
-import { sendContactsRouter } from './routers/example';
+import { amoRouter } from './routers/amo';
 
 export const appRouter = router({
-  sendContact: sendContactsRouter,
+  amoRouter,
 });
 
 export type AppRouter = typeof appRouter;

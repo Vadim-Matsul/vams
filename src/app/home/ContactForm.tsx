@@ -9,7 +9,7 @@ import { homeBlockIDs } from '@/configs/homeBlockIds';
 import Lottie from 'lottie-react';
 import LottieSuccessJSON from '../../../public/lottie/lottie_success.json';
 import { AnimatePresence, motion } from 'motion/react';
-import { trpc } from '@/utils/trpc';
+import { trpc } from '@/lib/trpc';
 import z from 'zod';
 
 type Props = {}
@@ -29,7 +29,7 @@ type FormValues = {
 };
 
 export function ContactForm({ }: Props) {
-  const sendContactFormMutation = trpc.sendContact.sendContactForm.useMutation();
+  const sendContactFormMutation = trpc.amoRouter.addContact.useMutation();
 
   const {
     handleSubmit,

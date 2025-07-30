@@ -22,6 +22,7 @@
     "lottie-react": "^2.4.1",
     "motion": "^12.23.3",
     "next": "15.3.5",
+    "node-fetch": "^3.3.2",
     "normalize.css": "^8.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
