@@ -177,7 +177,7 @@ export function SplitText({
   ]);
 
   return (
-    <p
+    <div
       ref={ref}
       className={cn(
         `split-parent overflow-hidden inline-block whitespace-normal ${className}`,
@@ -189,6 +189,6 @@ export function SplitText({
       }}
     >
       {text}
-    </p>
+    </div>
   );
 }

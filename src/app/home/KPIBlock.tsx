@@ -3,6 +3,7 @@
 import { BlurText } from '@/bits/BlurText';
 import { CountUp } from '@/bits/CountUp';
 import { GlareHover } from '@/bits/GlareHover';
+import { homeBlockIDs } from '@/configs/homeBlockIds';
 import { LiquidGlass } from '@/ui/LiquidGlass';
 import { cn } from '@/utils/cn'
 import { motion } from 'motion/react';
@@ -13,8 +14,10 @@ type Props = {}
 export function KPIBlock({ }: Props) {
 
   return (
-    <div
+    <section
+      id={homeBlockIDs.ABOUT}
       key='KPI block'
+      data-snap
       className='relative z-[2] overflow-hidden text-custom-brand-200'
     >
       <motion.div
@@ -219,6 +222,6 @@ export function KPIBlock({ }: Props) {
           </GlareHover>
         </div>
       </section>
-    </div>
+    </section>
   )
 }

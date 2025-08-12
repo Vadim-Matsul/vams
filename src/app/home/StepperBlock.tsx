@@ -1,9 +1,10 @@
 
 'use client';
 import { BlurText } from '@/bits/BlurText';
+import { mittEmitter, MittEventBusEvents } from '@/ui/eventBus';
 import { cn } from '@/utils/cn'
 import { motion, AnimatePresence } from 'motion/react';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 const step_config = [
   {
@@ -104,6 +105,16 @@ export function StepperBlock({ }: Props) {
     }
   }, [])
 
+  const [openDescByEvent, setOpenDescByEvent] = useState(false)
+  useEffect(() => {
+    mittEmitter.on(MittEventBusEvents.OPEN_STEPPERBLOCK_STEPS, () => {
+      setOpenDescByEvent(true);
+      setTimeout(setOpenDescByEvent, 1000, false)
+    })
+
+    return () => mittEmitter.off(MittEventBusEvents.OPEN_STEPPERBLOCK_STEPS);
+  }, [])
+
   return (
     <section
       ref={sectionRef}
@@ -123,6 +134,8 @@ export function StepperBlock({ }: Props) {
         {step_config.map((step, idx) => {
           const isIntersected = isIntersectedBlocks[idx];
           const lineTopByBlock = lineTopByBlocks[idx];
+
+          const shouldShowBlock = openDescByEvent || isIntersected;
 
           return (
             <div
@@ -151,7 +164,7 @@ export function StepperBlock({ }: Props) {
                     // Плавность цвета, тени, blur
                     'transition-all duration-500',
                     cn(
-                      isIntersected
+                      shouldShowBlock
                         ? cn(
                           'bg-[rgba(66,192,172,0.6)]',
                           'shadow-[0_15px_36.9px_3px_#D6E1EB,inset_-1px_-3px_3px_rgba(255,255,255,0.1),inset_1px_3px_5px_rgba(255,255,255,0.3),inset_0px_0px_14px_rgba(255,255,255,0.35),inset_0px_2px_10px_5px_rgba(53,53,53,0.05)]'
@@ -187,7 +200,7 @@ export function StepperBlock({ }: Props) {
                   className={cn(
                     'bg-white transition-all duration-500',
                     'absolute bottom-0 left-1/2 -translate-x-1/2 top-[34px]',
-                    isIntersected ? 'w-[3px]' : 'w-[1px]'
+                    shouldShowBlock ? 'w-[3px]' : 'w-[1px]'
                   )}
                 >
                   <div
@@ -209,7 +222,7 @@ export function StepperBlock({ }: Props) {
                 <p
                   className={cn(
                     'transition-all duration-500',
-                    isIntersected
+                    shouldShowBlock
                       ? 'text-[#15A28C]'
                       : 'text-custom-grey-100',
                     'font-unbounded font-semibold leading-[120%]',
@@ -231,7 +244,7 @@ export function StepperBlock({ }: Props) {
                   )}
                 >
                   <AnimatePresence mode='popLayout'>
-                    {isIntersected && (
+                    {shouldShowBlock && (
                       <motion.span
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -244,7 +257,7 @@ export function StepperBlock({ }: Props) {
                   <AnimatePresence
                     mode='popLayout'
                   >
-                    {!isIntersected && (
+                    {!shouldShowBlock && (
                       <motion.span
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -257,7 +270,7 @@ export function StepperBlock({ }: Props) {
                 </p>
 
                 <AnimatedDescHeight
-                  show={isIntersected}
+                  show={shouldShowBlock}
                   className={cn(
                     'font-geist font-semibold leading-[130%]',
                     'text-custom-brand-000',

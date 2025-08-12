@@ -1,6 +1,8 @@
 'use client';
 
+import { homeBlockIDs } from '@/configs/homeBlockIds';
 import { links, pageLinkKeys, pageLinks } from '@/configs/links'
+import { mittEmitter, MittEventBusEvents } from '@/ui/eventBus';
 import { cn } from '@/utils/cn'
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -10,8 +12,6 @@ type Props = {}
 
 const includePages = [
   pageLinkKeys.ABOUT,
-  pageLinkKeys.OBJECTS,
-  pageLinkKeys.SERVICES,
   pageLinkKeys.AGENCY,
   pageLinkKeys.CONTACTS,
 ]
@@ -57,6 +57,47 @@ const politics = [
 export function Footer({ }: Props) {
   const pathname = usePathname();
 
+
+  const scrollToSection = (key: typeof includePages[number]) => {
+    switch (key) {
+      case pageLinkKeys.ABOUT:
+        const el = document.getElementById(homeBlockIDs.ABOUT);
+        if (el) {
+          window.scrollBy({
+            top: el.getBoundingClientRect().top - 30,
+            behavior: 'smooth'
+          })
+        }
+        return;
+      case pageLinkKeys.AGENCY:
+        {
+          const el = document.getElementById(homeBlockIDs.TEAM);
+          if (el) {
+            window.scrollBy({
+              top: el.getBoundingClientRect().top,
+              behavior: 'smooth'
+            })
+          }
+        };
+        return;
+      case pageLinkKeys.CONTACTS:
+        {
+          const el = document.getElementById(homeBlockIDs.CONTACTS);
+          if (el) {
+            window.scrollBy({
+              top: el.getBoundingClientRect().top,
+              behavior: 'smooth'
+            })
+          }
+        }
+        return;
+      default:
+        console.warn(key + 'не обработан скролл')
+        return;
+    }
+  }
+
+
   return (
     <div
       style={{
@@ -100,15 +141,15 @@ export function Footer({ }: Props) {
                     'xl:text-[16px]',
                   )}
                 >
-                  <a
-                    href={pageBlock.href}
+                  <button
+                    onClick={() => scrollToSection(pageBlock.key)}
                     className={cn(
                       'cursor-pointer',
                       'transition-all hover:opacity-80 focus:opac-80'
                     )}
                   >
                     {pageBlock.title}
-                  </a>
+                  </button>
                 </li>
               )
             })}

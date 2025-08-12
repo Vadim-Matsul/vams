@@ -8,6 +8,7 @@ import { useInView, motion, useScroll, useTransform } from 'motion/react';
 import { SplitText } from '@/bits/SplitText';
 import { FadeContent } from '@/bits/FadeContent';
 import { CountUp } from '@/bits/CountUp';
+import { mittEmitter, MittEventBusEvents } from '@/ui/eventBus';
 
 type Props = {}
 
@@ -24,6 +25,22 @@ const splitText_options = {
 } as const;
 
 export function IntroBlock({ }: Props) {
+
+
+  const reqConsultation = () => {
+    mittEmitter.emit(MittEventBusEvents.OPEN_STEPPERBLOCK_STEPS)
+
+    setTimeout(() => {
+      const contactFormElement = document.getElementById(homeBlockIDs.CONTACT_FORM);
+      if (contactFormElement) {
+        window.scrollBy({
+          top: contactFormElement.getBoundingClientRect().top - 110,
+          behavior: 'smooth'
+        })
+      }
+    }, 400)
+  }
+
   return (
     <section
       id={homeBlockIDs.INTRO}
@@ -40,7 +57,7 @@ export function IntroBlock({ }: Props) {
       >
         <h2
           className={cn(
-            'font-unbounded font-medium text-custom-brand_200 text-center',
+            'font-unbounded font-medium text-custom-brand-200 text-center',
             'w-[322px] h-[99px] mx-auto overflow-hidden ',
             'md:w-[563px] md:h-[90px]',
             'xl:w-[1100px] xl:h-[100px]',
@@ -92,7 +109,7 @@ export function IntroBlock({ }: Props) {
         <Badge_11_3 />
         <Badge_13_3 />
         <Badge_07_1 />
-        <Badge_31_9 />
+        <Badge_32 />
         <LuzhnikiCollection />
         <PhoneBackground />
         <MyDocuments />
@@ -136,8 +153,9 @@ export function IntroBlock({ }: Props) {
           )}
         >
           <StarBorder
-            as="a"
-            href={'#' + homeBlockIDs.CONTACT_FORM}
+            as="button"
+            // href={'#' + homeBlockIDs.CONTACT_FORM}
+            onClick={reqConsultation}
             color="var(--color-custom-brand-200)"
             speed="3s"
             thickness={1.5}
@@ -194,8 +212,9 @@ function HouseofHorizons1() {
       <motion.section
         key='Дом Горизонтов 1'
         style={{ translateY }}
+        tabIndex={1}
         className={cn(
-          "hover:scale-[1.15] transition-all",
+          "hover:scale-[1.15] focus:scale-[1.15] transition-all",
           'absolute translate-y-0',
           'z-[4] w-[145px] h-[115px] left-[24px] top-[30px]',
           'md:z-[7] md:w-[175px] md:h-[138px] md:-top-[25px] md:left-[14px]', // md
@@ -345,9 +364,10 @@ function HouseofHorizons2() {
       <motion.section
         key='Дом Горизонтов 2'
         style={{ translateY }}
+        tabIndex={1}
         className={cn(
           'hidden md:block',
-          "hover:scale-[1.15] transition-all",
+          "hover:scale-[1.15] focus:scale-[1.15] transition-all",
           'absolute',
           'z-[3] w-[225px] h-[191px] top-[29px] right-0',
           'xl:z-[3] xl:w-[420px] xl:h-[356px] xl:top-[68px] xl:-right-[70px]', // xl
@@ -509,8 +529,9 @@ function Round19_9() {
       <motion.section
         key='+19.9% round'
         style={{ translateY }}
+        tabIndex={1}
         className={cn(
-          "hover:scale-[1.15] transition-all",
+          "hover:scale-[1.15] focus:scale-[1.15] transition-all",
           'absolute overflow-hidden',
           'z-[5] w-[159px] h-[134px] top-[24px] right-[8px]',
           'md:z-[9] md:w-[193px] md:h-[160px] md:top-[153px] md:right-0',// md
@@ -744,8 +765,9 @@ function Lavrushensky() {
       <motion.section
         key='Лаврушенский'
         style={{ translateY }}
+        tabIndex={1}
         className={cn(
-          "hover:scale-[1.15] transition-all",
+          "hover:scale-[1.15] focus:scale-[1.15] transition-all",
           'absolute',
           'z-[3] w-[187px] h-[158px] top-[124px] left-[23px]',
           'md:z-[8] md:w-[226px] md:h-[191px] md:top-[93px] md:left-[0px]', // md
@@ -892,9 +914,10 @@ function Badge_11_3() {
     >
       <section
         key='+11.3% | md'
+        tabIndex={1}
         className={cn(
           'hidden md:block', // md
-          "hover:scale-[1.15] transition-all",
+          "hover:scale-[1.15] focus:scale-[1.15] transition-all",
           'absolute',
           'z-[9] top-[213px] left-[144px] w-[40px] h-[29px]',
           'xl:z-[9] xl:top-[414px] xl:left-[267px] xl:w-[70px] xl:h-[50px]', // xl
@@ -947,8 +970,9 @@ function Badge_13_3() {
     >
       <section
         key='+13.3%'
+        tabIndex={1}
         className={cn(
-          "hover:scale-[1.15] transition-all",
+          "hover:scale-[1.15] focus:scale-[1.15] transition-all",
           'absolute z-[6]',
           'top-[141px] right-[23px] w-[71px] h-[50px]',
           'md:top-[27px] md:right-[177px] md:w-[41px] md:h-[30px]', //md
@@ -998,9 +1022,10 @@ function Badge_07_1() {
   return (
     <section
       key='+07.1% | md'
+      tabIndex={1}
       className={cn(
         'hidden md:block',
-        "hover:scale-[1.15] transition-all",
+        "hover:scale-[1.15] focus:scale-[1.15] transition-all",
         'absolute',
         'z-[8] top-[121px] right-[26px] w-[41px] h-[30px]', //md
         'xl:z-[8] xl:top-[255px] xl:-right-[28px] xl:w-[70px] xl:h-[51px]', // xl
@@ -1042,13 +1067,14 @@ function Badge_07_1() {
   )
 }
 
-function Badge_31_9() {
+function Badge_32() {
   return (
     <section
-      key='+31.9%'
+      key='+32%'
+      tabIndex={1}
       className={cn(
-        "hover:scale-[1.15] transition-all",
-        'absolute z-[1]',
+        "hover:scale-[1.15] focus:scale-[1.15] transition-all",
+        'absolute z-[20]',
         'w-[71px] h-[50px] top-[322px] left-[23px]',
         'md:w-[42px] md:h-[29px] md:top-[76px] md:left-[253px]', // md
         'xl:w-[73px] xl:h-[52px] xl:top-[83px] xl:left-[400px]', // xl
@@ -1082,7 +1108,7 @@ function Badge_31_9() {
             to={32}
             separator=" "
             direction="up"
-            duration={2}
+            duration={5}
             className={cn(
               'whitespace-nowrap inline-block text-center',
               'w-[15px] min-w-[15px] max-w-[15px]',
@@ -1122,8 +1148,9 @@ function LuzhnikiCollection() {
       <motion.section
         key='Luzhniki Collection'
         style={{ translateY }}
+        tabIndex={1}
         className={cn(
-          "hover:scale-[1.15] transition-all",
+          "hover:scale-[1.15] focus:scale-[1.15] transition-all",
           'absolute ',
           'z-[2] w-[189px] h-[164px] top-[226px] right-[28px]',
           'md:z-[7] md:w-[226px] md:h-[196px] md:top-[60px] md:right-[218px]', // md
@@ -1482,8 +1509,9 @@ function MyDocuments() {
     >
       <section
         key='Мои документы | md'
+        tabIndex={1}
         className={cn(
-          "hover:scale-[1.15] transition-all",
+          "hover:scale-[1.15] focus:scale-[1.15] transition-all",
           'hidden md:block',
           'absolute ',
           'z-[8] w-[119px] h-[82px] top-[76px] left-[182px]',

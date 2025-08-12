@@ -1,5 +1,4 @@
 'use client';
-
 import { Header } from '@/components/header/Header'
 import { IntroBlock } from './IntroBlock'
 import { KPIBlock } from './KPIBlock'
@@ -12,68 +11,51 @@ import { Footer } from '@/components/footer/Footer'
 import { StepperBlock } from './StepperBlock'
 import { ScrollUpMarginWrapper } from '@/ui/ScrollUpTranslateWrapper';
 import { cn } from '@/utils/cn';
-
+import { useEffect, useRef } from 'react';
+import Lenis from "lenis"
 
 type Props = {}
 
+
 export default function HomePage({ }: Props) {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 2, // дольше → плавнее
+      easing: t => 1 - Math.pow(1 - t, 3), // плавный ease-out
+      smoothWheel: true,
+    })
+
+
+    function raf(time: number) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
+
+    return () => {
+      lenis.destroy()
+    }
+  }, [])
 
   return (
     <>
       <Header />
       <IntroBlock />
-      <ScrollUpMarginWrapper
-        options={{
-          distanse: 'base:60vh',
-          scroll_gap: 'base:30vh'
-        }}
-        inView={{
-          margin: 100
-        }}
-        className={cn(
-          'z-[3] relative',
-        )}
-      >
-        <KPIBlock />
-        <AdvantagesListBlock />
 
-        <ScrollUpMarginWrapper
-          options={{
-            distanse: 'base:40vh',
-            scroll_gap: 'base:50vh'
-          }}
-          inView={{
-            margin: 100
-          }}
-          className={cn(
-            'z-[4] relative',
-          )}
-        >
-          <ReviewsBlock />
-          <StepperBlock />
-          <TeamBlock />
+      <KPIBlock />
+      <AdvantagesListBlock />
 
-          <div className='flex flex-col xl:flex-col-reverse pb-[60px] overflow-hidden'>
-            <ContactForm />
-            <ContactBlock />
-          </div>
+      <ReviewsBlock />
+      <StepperBlock />
+      <TeamBlock />
 
-          <ScrollUpMarginWrapper
-            options={{
-              distanse: 'base:50vh',
-              scroll_gap: 'base:25vh'
-            }}
-            inView={{
-              margin: 100
-            }}
-            className={cn(
-              'z-[5] relative',
-            )}
-          >
-            <Footer />
-          </ScrollUpMarginWrapper>
-        </ScrollUpMarginWrapper>
-      </ScrollUpMarginWrapper>
+      <div className='flex flex-col xl:flex-col-reverse pb-[60px] overflow-hidden'>
+        <ContactForm />
+        <ContactBlock />
+      </div>
+
+      <Footer />
     </>
   )
 }

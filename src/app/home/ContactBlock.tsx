@@ -2,6 +2,7 @@ import { FadeContent } from '@/bits/FadeContent';
 import { GlareHover } from '@/bits/GlareHover';
 import { SplitText } from '@/bits/SplitText';
 import { InstagramIcon, TelegramIcon, TelegramV2Icon, WhatsAppIcon } from '@/components/icons';
+import { homeBlockIDs } from '@/configs/homeBlockIds';
 import { links } from '@/configs/links';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
@@ -21,7 +22,7 @@ const options = {
 export function ContactBlock() {
 
   return (
-    <section>
+    <section id={homeBlockIDs.CONTACTS}>
       <GlareHover
         glareColor="#ffffff"
         glareOpacity={1}

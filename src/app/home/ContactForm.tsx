@@ -448,7 +448,7 @@ export function ContactForm({ }: Props) {
                   'md:w-[355px]'
                 )}
               >
-                Я согласен получатьс&nbsp;
+                Я согласен получать&nbsp;
                 <a
                   href="#"
                   className='inline underline hover:opacity-80 focus:opacity-80 transition-all'

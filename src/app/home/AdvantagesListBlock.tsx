@@ -26,12 +26,13 @@ export function AdvantagesListBlock({ }: Props) {
       >
         <FadeContent
           blur
-          duration={1000}
+          duration={300}
           threshold={0.7}
           easing="ease-out"
           className='relative w-fit h-fit mx-auto'
         >
-          <li
+          <section
+            data-snap
             className={cn(
               'w-[324px]',
               'md:w-auto',
@@ -117,17 +118,18 @@ export function AdvantagesListBlock({ }: Props) {
                 </div>
               </GlareHover>
             </ParallaxCard>
-          </li>
+          </section>
         </FadeContent>
 
         <FadeContent
           blur
-          duration={1000}
+          duration={300}
           threshold={0.7}
           easing="ease-out"
           className='relative w-fit h-fit mx-auto'
         >
-          <li
+          <section
+            data-snap
             className={cn(
               'w-[324px]',
               'md:w-auto',
@@ -212,17 +214,18 @@ export function AdvantagesListBlock({ }: Props) {
                 </div>
               </GlareHover>
             </ParallaxCard>
-          </li>
+          </section>
         </FadeContent>
 
         <FadeContent
           blur
-          duration={1000}
+          duration={300}
           threshold={0.7}
           easing="ease-out"
           className='relative w-fit h-fit mx-auto'
         >
-          <li
+          <section
+            data-snap
             className={cn(
               'w-[324px]',
               'md:w-auto',
@@ -308,17 +311,18 @@ export function AdvantagesListBlock({ }: Props) {
                 </div>
               </GlareHover>
             </ParallaxCard>
-          </li>
+          </section>
         </FadeContent>
 
         <FadeContent
           blur
-          duration={1000}
+          duration={300}
           threshold={0.7}
           easing="ease-out"
           className='relative w-fit h-fit mx-auto'
         >
-          <li
+          <section
+            data-snap
             className={cn(
               'w-[324px]',
               'md:w-auto',
@@ -403,7 +407,7 @@ export function AdvantagesListBlock({ }: Props) {
                 </div>
               </GlareHover>
             </ParallaxCard>
-          </li>
+          </section>
         </FadeContent>
       </ul>
     </section>

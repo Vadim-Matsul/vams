@@ -1,8 +1,6 @@
 export enum pageLinkKeys {
   HOME = 'HOME',
   ABOUT = 'ABOUT',
-  OBJECTS = 'OBJECTS',
-  SERVICES = 'SERVICES',
   AGENCY = 'AGENCY',
   CONTACTS = 'CONTACTS',
   /** Согласие на обработку персональных данных */
@@ -23,18 +21,6 @@ export const pageLinks = {
   [pageLinkKeys.ABOUT]: {
     key: pageLinkKeys.ABOUT,
     title: 'О нас',
-    href: '/',
-    is: () => { },
-  },
-  [pageLinkKeys.OBJECTS]: {
-    key: pageLinkKeys.OBJECTS,
-    title: 'Объекты',
-    href: '/',
-    is: () => { },
-  },
-  [pageLinkKeys.SERVICES]: {
-    key: pageLinkKeys.SERVICES,
-    title: 'Сервисы',
     href: '/',
     is: () => { },
   },
@@ -92,28 +78,16 @@ export const links = {
     num_number: 79672172297,
   },
   office_address: {
-    yandex_href: 'https://yandex.com/maps/-/CHhL7ANK',
-    location_name: 'Москва, Проектируемый пр-д № 4062, д.6, стр.16, оф.3.15',
+    yandex_href: 'https://yandex.ru/maps/-/CHhMIPM6',
+    location_name: 'Москва, Проектируемый пр. № 4062, д.6, стр.16, оф.3.15',
     location_el: <div>
       Москва <br />
-      Проектируемый пр-д № 4062<br />
+      Проектируемый пр. № 4062<br />
       д.6, стр.16, оф.3.15
     </div>
   },
   mail: {
-    email: 'office@vams-realty.ru',
-    href: 'mailto:office@vams-realty.ru'
-  },
-  policy_personal_data: {
-    href: '#',
-  },
-  consent_marketing: {
-    href: '#',
-  },
-  consent_personal_data: {
-    href: '#',
-  },
-  cookie_policy: {
-    href: '#',
+    email: 'info@vamsrealty.ru',
+    href: 'mailto:info@vamsrealty.ru'
   },
 } as const;

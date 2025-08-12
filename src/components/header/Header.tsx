@@ -13,6 +13,7 @@ import { LiquidGlass } from '@/ui/LiquidGlass';
 import { motion, AnimatePresence } from "framer-motion";
 import { FadeContent } from '@/bits/FadeContent';
 import { SplitText } from '@/bits/SplitText';
+import { mittEmitter, MittEventBusEvents } from '@/ui/eventBus';
 
 type Props = {}
 
@@ -30,11 +31,10 @@ const options = {
 
 const includePages = [
   pageLinkKeys.ABOUT,
-  pageLinkKeys.OBJECTS,
-  pageLinkKeys.SERVICES,
   pageLinkKeys.AGENCY,
   pageLinkKeys.CONTACTS,
-]
+];
+
 const pageLinksArr = Object
   .values(pageLinks)
   .filter(link => includePages.includes(link.key));
@@ -61,6 +61,63 @@ export function Header({ }: Props) {
       resizeObserver.disconnect()
     }
   }, [isOpen])
+
+  const reqConsultation = () => {
+    mittEmitter.emit(MittEventBusEvents.OPEN_STEPPERBLOCK_STEPS)
+
+    setTimeout(() => {
+      const contactFormElement = document.getElementById(homeBlockIDs.CONTACT_FORM);
+      if (contactFormElement) {
+        window.scrollBy({
+          top: contactFormElement.getBoundingClientRect().top - 110,
+          behavior: 'smooth'
+        })
+      }
+    }, 400)
+  }
+
+  const scrollToSection = (key: typeof includePages[number]) => {
+    switch (key) {
+      case pageLinkKeys.ABOUT:
+        const el = document.getElementById(homeBlockIDs.ABOUT);
+        if (el) {
+          window.scrollBy({
+            top: el.getBoundingClientRect().top - 30,
+            behavior: 'smooth'
+          })
+        }
+        return;
+      case pageLinkKeys.AGENCY:
+        mittEmitter.emit(MittEventBusEvents.OPEN_STEPPERBLOCK_STEPS)
+
+        setTimeout(() => {
+          const el = document.getElementById(homeBlockIDs.TEAM);
+          if (el) {
+            window.scrollBy({
+              top: el.getBoundingClientRect().top,
+              behavior: 'smooth'
+            })
+          }
+        }, 400)
+        return;
+      case pageLinkKeys.CONTACTS:
+        mittEmitter.emit(MittEventBusEvents.OPEN_STEPPERBLOCK_STEPS)
+
+        setTimeout(() => {
+          const el = document.getElementById(homeBlockIDs.CONTACTS);
+          if (el) {
+            window.scrollBy({
+              top: el.getBoundingClientRect().top,
+              behavior: 'smooth'
+            })
+          }
+        }, 300)
+        return;
+      default:
+        console.warn(key + 'не обработан скролл')
+        return;
+    }
+  }
 
   return (
     <>
@@ -123,15 +180,14 @@ export function Header({ }: Props) {
 
               <div className='hidden 1_5lg:flex gap-6 items-center '>
                 {pageLinksArr.map(pageLink => {
-
                   return (
-                    <Link
-                      href={pageLink.href}
+                    <button
+                      onClick={() => scrollToSection(pageLink.key)}
                       key={pageLink.key}
-                      className='text-custom-brand_200 leading-tight font-geist text-base font-medium'
+                      className='text-custom-brand-200 leading-tight font-geist text-base font-medium cursor-pointer'
                     >
                       {pageLink.title}
-                    </Link>
+                    </button>
                   )
                 })}
               </div>
@@ -175,10 +231,11 @@ export function Header({ }: Props) {
                         'w-[258px] h-[56px] min-h-[56px]'
                       )}
                     >
-                      <a
-                        href={'#' + homeBlockIDs.CONTACT_FORM}
+                      <button
+                        // href={'#' + homeBlockIDs.CONTACT_FORM}
+                        onClick={reqConsultation}
                         className={cn(
-                          'bg-transparent text-custom-brand-100',
+                          'bg-transparent text-custom-brand-100 cursor-pointer',
                           'w-full h-full rounded-[90px]',
                           'border-[1px] border-custom-brand-100',
                           'flex items-center justify-center',
@@ -192,7 +249,7 @@ export function Header({ }: Props) {
                         >
                           Запросить консультацию
                         </p>
-                      </a>
+                      </button>
                     </div>
 
                     <div className='mt-0.5'>
@@ -238,7 +295,6 @@ export function Header({ }: Props) {
       >
         <Drawer.Overlay
           aria-describedby='навигация'
-
           onClick={() => setIsOpen(false)}
           className='absolute inset-0 z-[20] bg-white/5 backdrop-blur-[3px]'
         />
@@ -271,15 +327,18 @@ export function Header({ }: Props) {
               <AnimatePresence>
                 {isOpen && pageLinksArr.map((item, idx) => (
                   <motion.li
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      setIsOpen(false)
+                      scrollToSection(item.key)
+                    }}
                     key={item.key}
                     initial={{ opacity: 0, x: 60 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 60 }}
                     transition={{ delay: idx * 0.2, type: "spring", stiffness: 400, damping: 30 }}
-                    className='font-unbounded font-medium text-[20px]'
+                    className='font-unbounded font-medium text-[20px] cursor-pointer'
                   >
-                    {item.title}
+                    <span className='text-custom-brand-200'>{item.title}</span>
                   </motion.li>
                 ))}
               </AnimatePresence>
@@ -289,11 +348,14 @@ export function Header({ }: Props) {
             // className='bg-red-500'
             >
               <div className='h-[44px] px-5 mb-8'>
-                <a
-                  href={'#' + homeBlockIDs.CONTACT_FORM}
-                  onClick={() => setIsOpen(false)}
+                <button
+                  // href={'#' + homeBlockIDs.CONTACT_FORM}
+                  onClick={() => {
+                    setIsOpen(false);
+                    reqConsultation()
+                  }}
                   className={cn(
-                    'bg-transparent text-custom-brand-100',
+                    'bg-transparent text-custom-brand-100 cursor-pointer',
                     'w-full h-full rounded-[90px]',
                     'border-[1px] border-custom-brand-100',
                     'flex items-center justify-center',
@@ -307,7 +369,7 @@ export function Header({ }: Props) {
                   >
                     Запросить консультацию
                   </p>
-                </a>
+                </button>
               </div>
 
               <div
