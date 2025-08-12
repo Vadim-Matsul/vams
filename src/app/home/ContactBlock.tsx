@@ -104,11 +104,7 @@ export function ContactBlock() {
                     {...options}
                     duration={2}
                     textAlign='left'
-                    text={<>
-                      Москва<br />
-                      Больша&nbsp;Никитская<br />
-                      улица,&nbsp;15&nbsp;стр&nbsp;2
-                    </>}
+                    text={links.office_address.location_el}
                   />
                 </a>
               </div>
@@ -186,7 +182,7 @@ export function ContactBlock() {
                   className='relative w-fit h-fit'
                 >
                   <a
-                    href={links.telegram.channel_href}
+                    href={links.telegram_bot.bot_href}
                     target="_blank"
                     rel="noopener noreferrer"
                     tabIndex={1}

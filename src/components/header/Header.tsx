@@ -28,10 +28,16 @@ const options = {
   textAlign: "center",
 } as const;
 
-const excludePages = [pageLinkKeys.HOME];
+const includePages = [
+  pageLinkKeys.ABOUT,
+  pageLinkKeys.OBJECTS,
+  pageLinkKeys.SERVICES,
+  pageLinkKeys.AGENCY,
+  pageLinkKeys.CONTACTS,
+]
 const pageLinksArr = Object
   .values(pageLinks)
-  .filter(link => !excludePages.includes(link.key));
+  .filter(link => includePages.includes(link.key));
 
 export function Header({ }: Props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +74,6 @@ export function Header({ }: Props) {
         >
           <div
             className={cn(
-              // 'absolute inset-0 z-[2]',
               'h-full flex items-center justify-center',
               'max-w-[var(--breakpoint-1_5xl)] 1_5xl:mx-auto'
             )}
@@ -142,7 +147,7 @@ export function Header({ }: Props) {
                 <div className='flex items-center gap-1.5 md:gap-3 1_5xl:gap-6'>
                   <div className='flex items-center gap-1.5 md:gap-3 1_5xl:gap-0'>
                     <a
-                      href={links.telegram.channel_href}
+                      href={links.telegram_bot.bot_href}
                       target="_blank"
                       rel="noopener noreferrer"
                       className='flex items-center justify-center w-9 h-9 text-custom-brand-200'
@@ -339,11 +344,7 @@ export function Header({ }: Props) {
                       {...options}
                       duration={2}
                       textAlign='left'
-                      text={<>
-                        Москва<br />
-                        Больша&nbsp;Никитская<br />
-                        улица,&nbsp;15&nbsp;стр&nbsp;2
-                      </>}
+                      text={links.office_address.location_el}
                     />
                   </a>
                 </div>
@@ -417,7 +418,7 @@ export function Header({ }: Props) {
                   className='relative w-fit h-fit'
                 >
                   <a
-                    href={links.telegram.channel_href}
+                    href={links.telegram_bot.bot_href}
                     target="_blank"
                     rel="noopener noreferrer"
                     tabIndex={1}

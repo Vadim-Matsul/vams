@@ -1,11 +1,21 @@
+'use client';
+
 import { links, pageLinkKeys, pageLinks } from '@/configs/links'
 import { cn } from '@/utils/cn'
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 
 type Props = {}
 
-const filterKeys = [pageLinkKeys.HOME]
-const pageBlocks = Object.values(pageLinks).filter(link => !filterKeys.includes(link.key))
+const includePages = [
+  pageLinkKeys.ABOUT,
+  pageLinkKeys.OBJECTS,
+  pageLinkKeys.SERVICES,
+  pageLinkKeys.AGENCY,
+  pageLinkKeys.CONTACTS,
+]
+const pageBlocks = Object.values(pageLinks).filter(link => includePages.includes(link.key))
 
 const contacts = [
   {
@@ -25,23 +35,27 @@ const contacts = [
 const politics = [
   {
     title: 'Политика обработки персональных данных',
-    href: links.policy_personal_data.href
+    href: pageLinks[pageLinkKeys.PRIVACY_POLICY].href,
+    is: pageLinks[pageLinkKeys.PRIVACY_POLICY].is,
   },
   {
-    title: 'Согласие на получение рекламно-информационных материалов',
-    href: links.consent_marketing.href
+    title: 'Пользовательское соглашение',
+    href: pageLinks[pageLinkKeys.TERMS_OF_USE].href,
+    is: pageLinks[pageLinkKeys.TERMS_OF_USE].is,
   },
   {
     title: 'Согласие Пользователя сайта на обработку персональных данных',
-    href: links.consent_personal_data.href
+    href: pageLinks[pageLinkKeys.PERSONAL_DATA_CONSENT].href,
+    is: pageLinks[pageLinkKeys.PERSONAL_DATA_CONSENT].is,
   },
-  {
-    title: 'Файлы Cookie',
-    href: links.cookie_policy.href
-  }
+  // {
+  //   title: 'Файлы Cookie',
+  //   href: links.cookie_policy.href
+  // }
 ]
 
 export function Footer({ }: Props) {
+  const pathname = usePathname();
 
   return (
     <div
@@ -149,23 +163,30 @@ export function Footer({ }: Props) {
           )}
         >
           {politics.map((politic) => {
+            const isCurrentPage = politic.is(pathname);
 
             return (
               <li
                 key={politic.title}
                 className={cn(
-                  'font-geist font-semibold text-custom-white-100',
+                  'font-geist font-semibold',
                   'text-[14px] leading-[130%]',
                   'xl:text-[16px]',
+                  'text-custom-white-100',
+                  isCurrentPage ? 'underline underline-offset-2 decoration-custom-white-100' : ''
                 )}
               >
                 <a
+                  onClick={(evt) => {
+                    if (isCurrentPage) evt.preventDefault()
+                  }}
                   href={politic.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  draggable={false}
                   className={cn(
-                    'cursor-pointer',
-                    'transition-all hover:opacity-80 focus:opac-80'
+                    'transition-all ',
+                    isCurrentPage ? 'cursor-auto' : 'cursor-pointer hover:opacity-80 focus:opacity-80'
                   )}
                 >
                   {politic.title}
