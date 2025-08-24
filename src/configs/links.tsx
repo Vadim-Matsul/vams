@@ -1,3 +1,5 @@
+import { team_config, TEAM_KEYS } from '@/app/home/TeamBlock';
+
 export enum pageLinkKeys {
   HOME = 'HOME',
   ABOUT = 'ABOUT',
@@ -9,6 +11,10 @@ export enum pageLinkKeys {
   PRIVACY_POLICY = 'PRIVACY_POLICY',
   /** Пользовательское соглашение */
   TERMS_OF_USE = 'TERMS_OF_USE',
+  /** Страница команды */
+  TEAM = 'TEAM',
+  /** Страница члена команды */
+  TEAM_PERSON = 'TEAM_PERSON',
 }
 
 export const pageLinks = {
@@ -16,24 +22,28 @@ export const pageLinks = {
     key: pageLinkKeys.HOME,
     title: '',
     href: '/',
+    make: (t: string) => '',
     is: () => { },
   },
   [pageLinkKeys.ABOUT]: {
     key: pageLinkKeys.ABOUT,
     title: 'О нас',
     href: '/',
+    make: (t: string) => '',
     is: () => { },
   },
   [pageLinkKeys.AGENCY]: {
     key: pageLinkKeys.AGENCY,
     title: 'Агентство',
     href: '/',
+    make: (t: string) => '',
     is: () => { },
   },
   [pageLinkKeys.CONTACTS]: {
     key: pageLinkKeys.CONTACTS,
     title: 'Контакты',
     href: '/',
+    make: (t: string) => '',
     is: () => { },
   },
   /** Согласие на обработку персональных данных */
@@ -41,6 +51,7 @@ export const pageLinks = {
     key: pageLinkKeys.PERSONAL_DATA_CONSENT,
     title: '',
     href: '/personal-data-consent',
+    make: (t: string) => '',
     is: (url: string) => url.endsWith('/personal-data-consent'),
   },
   /** Политика конфиденциальности */
@@ -48,6 +59,7 @@ export const pageLinks = {
     key: pageLinkKeys.PRIVACY_POLICY,
     title: '',
     href: '/privacy-policy',
+    make: (t: string) => '',
     is: (url: string) => url.endsWith('/privacy-policy'),
   },
   /** Пользовательское соглашение */
@@ -55,14 +67,42 @@ export const pageLinks = {
     key: pageLinkKeys.TERMS_OF_USE,
     title: '',
     href: '/terms-of-use',
+    make: (t: string) => '',
     is: (url: string) => url.endsWith('/terms-of-use'),
+  },
+  /** Страница команды */
+  [pageLinkKeys.TEAM]: {
+    key: pageLinkKeys.TEAM,
+    title: '',
+    href: '/team',
+    make: (t: string) => '',
+    is: (url: string) => url.endsWith('/team'),
+  },
+  /** Страница члена команды */
+  [pageLinkKeys.TEAM_PERSON]: {
+    key: pageLinkKeys.TEAM_PERSON,
+    title: '',
+    href: '/team/[id]',
+    make: (team_person_id: TEAM_KEYS) => `/team/${team_person_id}`,
+    is: (url: string) => {
+      if (!url.startsWith('/team/')) {
+        return false
+      }
+
+      const key = url.split('/')[2]
+      const existTeamConfigKeys = team_config.map(person => person.key);
+      return existTeamConfigKeys.includes(key as TEAM_KEYS)
+    },
   },
 } as const;
 
 export const links = {
   telegram: {
-    channel_name: 'vsrealty',
+    channel_name: 'vamssmartrealty',
     channel_href: 'https://t.me/vamssmartrealty',
+  },
+  youtube: {
+    channel_href: '#', // TODO
   },
   telegram_bot: {
     bot_href: 'https://t.me/vamssmartrealtybot'

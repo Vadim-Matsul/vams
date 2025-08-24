@@ -11,93 +11,103 @@ import { BlurText } from '@/bits/BlurText';
 import { FadeContent } from '@/bits/FadeContent';
 import { ParallaxCard } from '@/ui/ParallaxCard';
 import { homeBlockIDs } from '@/configs/homeBlockIds';
+import { useRouter } from 'next/navigation';
+import { pageLinkKeys, pageLinks } from '@/configs/links';
 
-enum KEYS {
-  hakobyan = 'hakobyan',
-  romanov = 'romanov',
-  zakharova = 'zakharova',
-  platonova = 'platonova',
-  didarova = 'didarova',
-  bredyuk = 'bredyuk',
-  nikulnikova = 'nikulnikova',
-  zholobova = 'zholobova'
+export enum TEAM_KEYS {
+  hakobyan = 'Hakobyan_Minas_Oganesovich',
+  romanov = 'Romanov_Vladilen_Vyacheslavovich',
+  zakharova = 'Zakharova_Yana_Mikhailovna',
+  platonova = 'Platonova_Mariya_Andreevna',
+  didarova = 'Didarova_Elina_Igorevna',
+  bredyuk = 'Bredyuk_Kristina_Vladimirovna',
+  nikulnikova = 'Nikulnikova_Mariya_Olegovna',
+  zholobova = 'Zholobova_Elena_Vasilevna',
 }
 
 const DESKTOP_WIDTH = screensData.md.num;
 
-const team_config = [
+export const team_config = [
   {
-    key: KEYS.hakobyan,
+    key: TEAM_KEYS.hakobyan,
     name: 'Акопян Минас Оганесович',
     desc: 'Основатель и руководитель VSR. Полиглот и экономист, владеющий инвестиционной экспертизой. 10 лет успешно развивает бизнес-проекты в разных сферах.',
     badge: 'Стаж 10 лет',
+    role: 'Основатель и руководитель',
     img: '/images/team_hakobyan.png',
   },
   {
-    key: KEYS.romanov,
+    key: TEAM_KEYS.romanov,
     name: 'Романов Владилен Вячеславович',
     desc: 'Операционный директор с 15-летним опытом в финансовой сфере. 10 лет в банковском секторе и столько же в недвижимости. Строит процессы с математической точностью.',
+    role: 'Операционный директор',
     badge: '',
     img: '/images/team_romanov.png',
   },
   {
-    key: KEYS.zakharova,
+    key: TEAM_KEYS.zakharova,
     name: 'Захарова Яна Михайловна',
     desc: 'Как управляющий партнёр, создает новые стандарты работы с премиальной недвижимостью. Тонко чувствует баланс между эстетикой и выгодой.',
+    role: 'Управляющий партнёр',
     badge: '',
     img: '/images/team_zakharova.png',
   },
   {
-    key: KEYS.platonova,
+    key: TEAM_KEYS.platonova,
     name: 'Платонова Мария Андреевна',
     desc: 'Секретарь с экономическим образованием. Гарантирует безупречный порядок в документах и процессах. Точно знает цену каждой детали.',
+    role: 'Секретарь',
     badge: '',
     img: '/images/team_platonova.png',
   },
   {
-    key: KEYS.didarova,
+    key: TEAM_KEYS.didarova,
     name: 'Дидарова Элина Игоревна',
     desc: 'Координатор с юридическим бэкграундом. 6 лет создаёт безопасные и прозрачные условия сделок. Подход, где каждая мелочь имеет значение.',
+    role: 'Координатор',
     badge: '',
     img: '/images/team_didarova.png',
   },
   {
-    key: KEYS.bredyuk,
+    key: TEAM_KEYS.bredyuk,
     name: 'Бредюк Кристина Владимировна',
     desc: 'Координатор с медицинским образованием. Быстро анализирует детали и находит оптимальные решения. Подходит к каждому клиенту со взглядом исследователя.',
+    role: 'Координатор',
     badge: '',
     img: '/images/team_bredyuk.png',
   },
   {
-    key: KEYS.nikulnikova,
+    key: TEAM_KEYS.nikulnikova,
     name: 'Никульникова Мария Олеговна',
     desc: 'Опытный координатор с 6-летним стажем в продажах. Превращает ваши потребности в идеальные предложения.',
+    role: 'Опытный Координатор',
     badge: '',
     img: '/images/team_nikulnikova.png',
   },
   {
-    key: KEYS.zholobova,
+    key: TEAM_KEYS.zholobova,
     name: 'Жолобова Елена Васильевна',
     desc: 'Ипотечный специалист с 30-летним стажем. 20 лет в недвижимости и 10 в банковском секторе. Находит финансовые решения даже в сложных случаях.',
+    role: 'Ипотечный специалист',
     badge: '',
     img: '/images/team_zholobova.png',
   },
 ] as const;
 
 const mobile_reqshowteam = [
-  KEYS.hakobyan,
-  KEYS.romanov,
-  KEYS.zakharova,
-  KEYS.didarova
+  TEAM_KEYS.hakobyan,
+  TEAM_KEYS.romanov,
+  TEAM_KEYS.zakharova,
+  TEAM_KEYS.didarova
 ]
 
 const desktop_reqshowteam = [
-  KEYS.hakobyan,
-  KEYS.romanov,
-  KEYS.zakharova,
-  KEYS.platonova,
-  KEYS.didarova,
-  KEYS.bredyuk
+  TEAM_KEYS.hakobyan,
+  TEAM_KEYS.romanov,
+  TEAM_KEYS.zakharova,
+  TEAM_KEYS.platonova,
+  TEAM_KEYS.didarova,
+  TEAM_KEYS.bredyuk
 ]
 
 type Props = {}
@@ -250,7 +260,8 @@ export function TeamBlock({ }: Props) {
 }
 
 function TeamPerson({ person }: { person: typeof team_config[number] }) {
-  const [isActive, setIsActive] = useState(false)
+  const [isActive, setIsActive] = useState(false);
+  const router = useRouter();
 
   return (
     <FadeContent
@@ -269,8 +280,13 @@ function TeamPerson({ person }: { person: typeof team_config[number] }) {
         onMouseLeave={() => setIsActive(false)}
         onFocus={() => setIsActive(true)}
         onBlur={() => setIsActive(false)}
+        onClick={(evt) => {
+          evt.preventDefault();
+          router.push(pageLinks[pageLinkKeys.TEAM_PERSON as keyof typeof pageLinks].make(person.key));
+        }}
+        tabIndex={1}
         className={cn(
-          'relative rounded-[8px] overflow-hidden',
+          'relative rounded-[8px] overflow-hidden cursor-pointer',
           'hover:scale-[1.04] transition-all focus:scale-[1.04]',
           'w-[324px] h-[458px]',
           'md:w-[352px] md:h-[550px]',

@@ -195,7 +195,7 @@ export function Header({ }: Props) {
               <div className='flex items-center 1_5xl:gap-6'>
                 <a
                   href={`tel:+${links.phone.num_number}`}
-                  className='hidden 1_5xl:inline font-medium font-geist text-base leading-[19px]'
+                  className='hidden text-custom-brand-200 1_5xl:inline font-medium font-geist text-base leading-[19px]'
                 >
                   {links.phone.str_number}
                 </a>
