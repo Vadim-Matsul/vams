@@ -92,7 +92,7 @@ export const team_config = [
     badge: '',
     img: '/images/team_zholobova.png',
   },
-] as const;
+];
 
 const mobile_reqshowteam = [
   TEAM_KEYS.hakobyan,
@@ -280,7 +280,8 @@ function TeamPerson({ person }: { person: typeof team_config[number] }) {
         onBlur={() => setIsActive(false)}
         onClick={(evt) => {
           evt.preventDefault();
-          router.push(pageLinks[pageLinkKeys.TEAM_PERSON as keyof typeof pageLinks].make(person.key));
+          const key = pageLinkKeys.TEAM_PERSON as keyof typeof pageLinks;
+          router.push(pageLinks[key!].make(person.key));
         }}
         tabIndex={1}
         className={cn(
