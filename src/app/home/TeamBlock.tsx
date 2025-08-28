@@ -16,7 +16,7 @@ import { pageLinkKeys, pageLinks } from '@/configs/links';
 
 export enum TEAM_KEYS {
   hakobyan = 'Hakobyan_Minas_Oganesovich',
-  romanov = 'Romanov_Vladilen_Vyacheslavovich',
+  // romanov = 'Romanov_Vladilen_Vyacheslavovich',
   zakharova = 'Zakharova_Yana_Mikhailovna',
   platonova = 'Platonova_Mariya_Andreevna',
   didarova = 'Didarova_Elina_Igorevna',
@@ -36,14 +36,14 @@ export const team_config = [
     role: 'Основатель и руководитель',
     img: '/images/team_hakobyan.png',
   },
-  {
-    key: TEAM_KEYS.romanov,
-    name: 'Романов Владилен Вячеславович',
-    desc: 'Операционный директор с 15-летним опытом в финансовой сфере. 10 лет в банковском секторе и столько же в недвижимости. Строит процессы с математической точностью.',
-    role: 'Операционный директор',
-    badge: '',
-    img: '/images/team_romanov.png',
-  },
+  // {
+  //   key: TEAM_KEYS.romanov,
+  //   name: 'Романов Владилен Вячеславович',
+  //   desc: 'Операционный директор с 15-летним опытом в финансовой сфере. 10 лет в банковском секторе и столько же в недвижимости. Строит процессы с математической точностью.',
+  //   role: 'Операционный директор',
+  //   badge: '',
+  //   img: '/images/team_romanov.png',
+  // },
   {
     key: TEAM_KEYS.zakharova,
     name: 'Захарова Яна Михайловна',
@@ -96,14 +96,12 @@ export const team_config = [
 
 const mobile_reqshowteam = [
   TEAM_KEYS.hakobyan,
-  TEAM_KEYS.romanov,
   TEAM_KEYS.zakharova,
   TEAM_KEYS.didarova
 ]
 
 const desktop_reqshowteam = [
   TEAM_KEYS.hakobyan,
-  TEAM_KEYS.romanov,
   TEAM_KEYS.zakharova,
   TEAM_KEYS.platonova,
   TEAM_KEYS.didarova,
