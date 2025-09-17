@@ -8,10 +8,10 @@ const TEAM_KEYS = {
   hakobyan: 'Hakobyan_Minas_Oganesovich',
   zakharova: 'Zakharova_Yana_Mikhailovna',
   platonova: 'Platonova_Mariya_Andreevna',
-  didarova: 'Didarova_Elina_Igorevna',
   bredyuk: 'Bredyuk_Kristina_Vladimirovna',
   nikulnikova: 'Nikulnikova_Mariya_Olegovna',
   zholobova: 'Zholobova_Elena_Vasilevna',
+  varlakova: 'Varlakova_Valeria_Alexandrovna',
 };
 
 const exist_pages = ['/', '/personal-data-consent', '/privacy-policy', '/terms-of-use', '/team/[id]'];

@@ -14,18 +14,18 @@ import { homeBlockIDs } from '@/configs/homeBlockIds';
 import { useRouter } from 'next/navigation';
 import { pageLinkKeys, pageLinks } from '@/configs/links';
 
-export enum TEAM_KEYS {
-  hakobyan = 'Hakobyan_Minas_Oganesovich',
-  // romanov = 'Romanov_Vladilen_Vyacheslavovich',
-  zakharova = 'Zakharova_Yana_Mikhailovna',
-  platonova = 'Platonova_Mariya_Andreevna',
-  didarova = 'Didarova_Elina_Igorevna',
-  bredyuk = 'Bredyuk_Kristina_Vladimirovna',
-  nikulnikova = 'Nikulnikova_Mariya_Olegovna',
-  zholobova = 'Zholobova_Elena_Vasilevna',
-}
+export const TEAM_KEYS = {
+  hakobyan: 'Hakobyan_Minas_Oganesovich',
+  zakharova: 'Zakharova_Yana_Mikhailovna',
+  platonova: 'Platonova_Mariya_Andreevna',
+  bredyuk: 'Bredyuk_Kristina_Vladimirovna',
+  nikulnikova: 'Nikulnikova_Mariya_Olegovna',
+  zholobova: 'Zholobova_Elena_Vasilevna',
+  varlakova: 'Varlakova_Valeria_Alexandrovna'
+};
 
 const DESKTOP_WIDTH = screensData.md.num;
+const LG_1_5_WIDTH = screensData['1_5lg'].num;
 
 export const team_config = [
   {
@@ -34,39 +34,23 @@ export const team_config = [
     desc: 'Основатель и руководитель VSR. Полиглот и экономист, владеющий инвестиционной экспертизой. 10 лет успешно развивает бизнес-проекты в разных сферах.',
     badge: 'Стаж 10 лет',
     role: 'Основатель и руководитель',
-    img: '/images/team_hakobyan.png',
+    img: '/images/team_hakobyan_new.png',
   },
-  // {
-  //   key: TEAM_KEYS.romanov,
-  //   name: 'Романов Владилен Вячеславович',
-  //   desc: 'Операционный директор с 15-летним опытом в финансовой сфере. 10 лет в банковском секторе и столько же в недвижимости. Строит процессы с математической точностью.',
-  //   role: 'Операционный директор',
-  //   badge: '',
-  //   img: '/images/team_romanov.png',
-  // },
   {
     key: TEAM_KEYS.zakharova,
     name: 'Захарова Яна Михайловна',
     desc: 'Как управляющий партнёр, создает новые стандарты работы с премиальной недвижимостью. Тонко чувствует баланс между эстетикой и выгодой.',
     role: 'Управляющий партнёр',
     badge: '',
-    img: '/images/team_zakharova.png',
+    img: '/images/team_zakharova_new.png',
   },
   {
     key: TEAM_KEYS.platonova,
     name: 'Платонова Мария Андреевна',
-    desc: 'Секретарь с экономическим образованием. Гарантирует безупречный порядок в документах и процессах. Точно знает цену каждой детали.',
+    desc: 'Специалист с экономическим образованием и вниманием к деталям. Превращает сложные процессы в чёткие и организованные системы. Ваши документы всегда в идеальном порядке.',
     role: 'Секретарь',
     badge: '',
-    img: '/images/team_platonova.png',
-  },
-  {
-    key: TEAM_KEYS.didarova,
-    name: 'Дидарова Элина Игоревна',
-    desc: 'Координатор с юридическим бэкграундом. 6 лет создаёт безопасные и прозрачные условия сделок. Подход, где каждая мелочь имеет значение.',
-    role: 'Координатор',
-    badge: '',
-    img: '/images/team_didarova.png',
+    img: '/images/team_platonova_new.png',
   },
   {
     key: TEAM_KEYS.bredyuk,
@@ -74,7 +58,7 @@ export const team_config = [
     desc: 'Координатор с медицинским образованием. Быстро анализирует детали и находит оптимальные решения. Подходит к каждому клиенту со взглядом исследователя.',
     role: 'Координатор',
     badge: '',
-    img: '/images/team_bredyuk.png',
+    img: '/images/team_bredyuk_new.png',
   },
   {
     key: TEAM_KEYS.nikulnikova,
@@ -82,30 +66,45 @@ export const team_config = [
     desc: 'Опытный координатор с 6-летним стажем в продажах. Превращает ваши потребности в идеальные предложения.',
     role: 'Опытный Координатор',
     badge: '',
-    img: '/images/team_nikulnikova.png',
+    img: '/images/team_nikulnikova_new.png',
   },
   {
     key: TEAM_KEYS.zholobova,
     name: 'Жолобова Елена Васильевна',
-    desc: 'Ипотечный специалист с 30-летним стажем. 20 лет в недвижимости и 10 в банковском секторе. Находит финансовые решения даже в сложных случаях.',
+    desc: 'Эффективно решает даже самые сложные финансовые задачи. Находит решения, которые другие считают невозможными.',
     role: 'Ипотечный специалист',
     badge: '',
-    img: '/images/team_zholobova.png',
+    img: '/images/team_zholobova_new.png',
+  },
+  {
+    key: TEAM_KEYS.varlakova,
+    name: 'Варлакова Валерия Александровна',
+    desc: 'Юрист по образованию, перфекционист по призванию. Обеспечивает безупречную точность документооборота и юридическую чистоту каждой сделки.',
+    role: 'Юрист',
+    badge: '',
+    img: '/images/team_varlakova_new.png',
   },
 ];
 
-const mobile_reqshowteam = [
+const mobile_requireshowteam = [
   TEAM_KEYS.hakobyan,
   TEAM_KEYS.zakharova,
-  TEAM_KEYS.didarova
 ]
 
-const desktop_reqshowteam = [
+const desktop_requireshowteam = [
   TEAM_KEYS.hakobyan,
   TEAM_KEYS.zakharova,
   TEAM_KEYS.platonova,
-  TEAM_KEYS.didarova,
   TEAM_KEYS.bredyuk
+]
+
+const lg_1_5_requireshowteam = [
+  TEAM_KEYS.hakobyan,
+  TEAM_KEYS.zakharova,
+  TEAM_KEYS.platonova,
+  TEAM_KEYS.bredyuk,
+  TEAM_KEYS.nikulnikova,
+  TEAM_KEYS.zholobova,
 ]
 
 type Props = {}
@@ -116,21 +115,43 @@ export function TeamBlock({ }: Props) {
       ? false
       : window.innerWidth < DESKTOP_WIDTH
   );
+  const [is1_5LG, setIs1_5LG] = useState(
+    typeof window === 'undefined'
+      ? false
+      : window.innerWidth >= LG_1_5_WIDTH
+  );
   const [showFullTeam, setShowFullTeam] = useState(false);
   const accessComplete = useRef(false);
   const [isCompleteBTNAnimation, setIsCompleteBTNAnimation] = useState(false);
 
   useEffect(() => {
+    // следит за mobile шириной экрана
     if (typeof window === 'undefined') return;
     const mql = window.matchMedia(`(min-width: ${DESKTOP_WIDTH}px)`);
     const onChange = (e: MediaQueryListEvent) => setIsMobile(!e.matches);
 
-    setIsMobile(!mql.matches);
     mql.addEventListener('change', onChange);
     return () => mql.removeEventListener('change', onChange);
   }, []);
 
-  const requireTeamKeys = isMobile ? mobile_reqshowteam : desktop_reqshowteam;
+  useEffect(() => {
+    // следит за 1_5lg шириной экрана
+    if (typeof window === 'undefined') return;
+    const mql = window.matchMedia(`(min-width: ${LG_1_5_WIDTH}px)`);
+    const onChange = (e: MediaQueryListEvent) => {
+      setIs1_5LG(e.matches)
+    };
+
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
+  }, []);
+
+
+  const requireTeamKeys = isMobile
+    ? mobile_requireshowteam
+    : is1_5LG
+      ? lg_1_5_requireshowteam
+      : desktop_requireshowteam;
   const showTeam = team_config.filter((person) => requireTeamKeys.includes(person.key));
   const hiddenTeam = team_config.filter((person) => !requireTeamKeys.includes(person.key));
 

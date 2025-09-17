@@ -83,7 +83,7 @@ export const pageLinks = {
     key: pageLinkKeys.TEAM_PERSON,
     title: '',
     href: '/team/[id]',
-    make: (team_person_id: TEAM_KEYS) => `/team/${team_person_id}`,
+    make: (team_person_id: string) => `/team/${team_person_id}`,
     is: (url: string) => {
       if (!url.startsWith('/team/')) {
         return false
@@ -91,7 +91,7 @@ export const pageLinks = {
 
       const key = url.split('/')[2]
       const existTeamConfigKeys = team_config.map(person => person.key);
-      return existTeamConfigKeys.includes(key as TEAM_KEYS)
+      return existTeamConfigKeys.includes(key as string)
     },
   },
 } as const;
