@@ -78,7 +78,7 @@ export const pageLinks = {
     make: (t: string) => '',
     is: (url: string) => url.endsWith('/team'),
   },
-  /** Страница члена команды */
+  /** Страница члена команды  */
   [pageLinkKeys.TEAM_PERSON]: {
     key: pageLinkKeys.TEAM_PERSON,
     title: '',
