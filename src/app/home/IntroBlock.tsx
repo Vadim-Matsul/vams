@@ -763,7 +763,7 @@ function Lavrushensky() {
       className='relative z-[3] md:z-[8]'
     >
       <motion.section
-        key='Лаврушенский'
+        key='Лаврушинский'
         style={{ translateY }}
         tabIndex={1}
         className={cn(
@@ -822,7 +822,7 @@ function Lavrushensky() {
                   'xl:pl-3 xl:pt-4 xl:text-[20px] xl:leading-[21px]', // xl
                 )}
               >
-                Лаврушенский
+                Лаврушинский
               </p>
 
               <div className={cn(
