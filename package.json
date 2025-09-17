@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "sitemap": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
+    "@next/third-parties": "^15.5.3",
     "@react-three/drei": "^10.5.0",
     "@react-three/fiber": "^9.2.0",
     "@tanstack/react-query": "^5.83.0",

@@ -1,0 +1,11 @@
+User-agent: *
+
+# Запрещаем индексацию фильтров и параметров в URL
+Disallow: /*?*
+Disallow: /*&*
+Disallow: /team/
+
+# Разрешаем все остальные страницы
+Allow: /
+
+Sitemap: https://vamsrealty.ru/sitemap.xml

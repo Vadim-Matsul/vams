@@ -1,18 +1,16 @@
 'use client';
+import dynamic from 'next/dynamic';
 import { Header } from '@/components/header/Header'
-import { IntroBlock } from './IntroBlock'
-import { KPIBlock } from './KPIBlock'
-import { AdvantagesListBlock } from './AdvantagesListBlock'
-import { ReviewsBlock } from './ReviewsBlock'
-import { TeamBlock } from './TeamBlock'
-import { ContactBlock } from './ContactBlock'
 import { ContactForm } from './ContactForm'
 import { Footer } from '@/components/footer/Footer'
-import { StepperBlock } from './StepperBlock'
-// import { ScrollUpMarginWrapper } from '@/ui/ScrollUpTranslateWrapper';
-// import { cn } from '@/utils/cn';
-// import { useEffect, useRef } from 'react';
-// import Lenis from "lenis"
+
+const IntroBlock = dynamic(() => import('./IntroBlock').then(mod => mod.IntroBlock));
+const KPIBlock = dynamic(() => import('./KPIBlock').then(mod => mod.KPIBlock));
+const AdvantagesListBlock = dynamic(() => import('./AdvantagesListBlock').then(mod => mod.AdvantagesListBlock));
+const ReviewsBlock = dynamic(() => import('./ReviewsBlock').then(mod => mod.ReviewsBlock));
+const TeamBlock = dynamic(() => import('./TeamBlock').then(mod => mod.TeamBlock));
+const ContactBlock = dynamic(() => import('./ContactBlock').then(mod => mod.ContactBlock));
+const StepperBlock = dynamic(() => import('./StepperBlock').then(mod => mod.StepperBlock));
 
 type Props = {}
 
@@ -67,7 +65,6 @@ export default function HomePage({ }: Props) {
   //     lenis.destroy()
   //   }
   // }, [])
-
 
   return (
     <>
