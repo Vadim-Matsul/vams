@@ -30,17 +30,9 @@ export const metadata: Metadata = {
   description: 'Эксклюзивные объекты элитной недвижимости в Москве. Доступные условия покупки: ипотека, рассрочка от застройщика. Персональный подбор от экспертов рынка.',
 };
 
-const NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID || '';
-const NEXT_PUBLIC_YM_COUNTER_ID = process.env.NEXT_PUBLIC_YM_COUNTER_ID || '';
-const NEXT_PUBLIC_YM_COUNTER_ID_2 = process.env.NEXT_PUBLIC_YM_COUNTER_ID_2 || '';
-
-console.log(
-  'layout vars',
-  {
-    NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID,
-    NEXT_PUBLIC_YM_COUNTER_ID,
-    NEXT_PUBLIC_YM_COUNTER_ID_2,
-  })
+const NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID = 'G-B7JRBJZ1ZV';
+const NEXT_PUBLIC_YM_COUNTER_ID = '104184672';
+const NEXT_PUBLIC_YM_COUNTER_ID_2 = '104182025';
 
 export default function RootLayout({
   children,
