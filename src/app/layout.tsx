@@ -34,6 +34,14 @@ const NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GOOGLE_MEASURE
 const NEXT_PUBLIC_YM_COUNTER_ID = process.env.NEXT_PUBLIC_YM_COUNTER_ID || '';
 const NEXT_PUBLIC_YM_COUNTER_ID_2 = process.env.NEXT_PUBLIC_YM_COUNTER_ID_2 || '';
 
+console.log(
+  'layout vars',
+  {
+    NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID,
+    NEXT_PUBLIC_YM_COUNTER_ID,
+    NEXT_PUBLIC_YM_COUNTER_ID_2,
+  })
+
 export default function RootLayout({
   children,
 }: Readonly<{

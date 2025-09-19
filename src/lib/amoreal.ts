@@ -19,12 +19,15 @@ export const amoVars = {
     redirect_url: process.env.AMOCRM_REDIRECT_URL,
     base_domain: process.env.AMOCRM_BASE_DOMAIN,
     api_url: `https://${process.env.AMOCRM_BASE_DOMAIN}.amocrm.ru/api/v4`,
+    NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID || '',
+    NEXT_PUBLIC_YM_COUNTER_ID: process.env.NEXT_PUBLIC_YM_COUNTER_ID || '',
+    NEXT_PUBLIC_YM_COUNTER_ID_2: process.env.NEXT_PUBLIC_YM_COUNTER_ID_2 || '',
   },
 };
 
 export async function amoRequest(endpoint: string, method = 'GET', body?: any) {
   try {
-    console.log('amoRequest ', amoVars);
+    console.log('amoRequest ', amoVars.envs);
 
     const response = await fetch(`${amoVars.envs.api_url}${endpoint}`, {
       method,
