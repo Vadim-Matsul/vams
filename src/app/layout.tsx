@@ -32,6 +32,7 @@ export const metadata: Metadata = {
 
 const NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID || '';
 const NEXT_PUBLIC_YM_COUNTER_ID = process.env.NEXT_PUBLIC_YM_COUNTER_ID || '';
+const NEXT_PUBLIC_YM_COUNTER_ID_2 = process.env.NEXT_PUBLIC_YM_COUNTER_ID_2 || '';
 
 export default function RootLayout({
   children,
@@ -59,12 +60,26 @@ export default function RootLayout({
                 accurateTrackBounce:true,
                 webvisor:true
             });
+            console.log("✅ Yandex.Metrika 1 подключен");
+
+            ym(${NEXT_PUBLIC_YM_COUNTER_ID_2}, "init", {
+                clickmap:true,
+                trackLinks:true,
+                accurateTrackBounce:true,
+                webvisor:true
+            });
+            console.log("✅ Yandex.Metrika 2 подключен");
           `}
         </Script>
         <noscript>
           <div className='font-medium'>
             <img
               src={`https://mc.yandex.ru/watch/${NEXT_PUBLIC_YM_COUNTER_ID}`}
+              style={{ position: 'absolute', left: '-9999px' }}
+              alt=""
+            />
+            <img
+              src={`https://mc.yandex.ru/watch/${NEXT_PUBLIC_YM_COUNTER_ID_2}`}
               style={{ position: 'absolute', left: '-9999px' }}
               alt=""
             />
@@ -82,10 +97,16 @@ export default function RootLayout({
           {children}
         </Providers>
 
-        <GoogleAnalytics
-          gaId={NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID}
-
-        />
+        {NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID && (
+          <>
+            <GoogleAnalytics gaId={NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID} />
+            <Script id="ga-log" strategy="lazyOnload">
+              {`
+                console.log("✅ Google Analytics подключен");
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );
