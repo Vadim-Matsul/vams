@@ -58,7 +58,7 @@ export const team_config = [
     desc: 'Координатор с медицинским образованием. Быстро анализирует детали и находит оптимальные решения. Подходит к каждому клиенту со взглядом исследователя.',
     role: 'Координатор',
     badge: '',
-    img: '/images/team_bredyuk_new.png',
+    img: '/images/team_bredyuk_new.jpg',
   },
   {
     key: TEAM_KEYS.nikulnikova,
