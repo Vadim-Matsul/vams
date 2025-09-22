@@ -144,52 +144,53 @@ export function IntroBlock({ }: Props) {
           />
         </h3>
 
-        <div
-          className={cn(
-            'rounded-[90px] overflow-hidden',
-            'mx-auto transition-all',
-            'hover:scale-[.95] focus:scale-[.95]',
-            'w-[288px] h-[44px]'
-          )}
-        >
-          <StarBorder
-            as="button"
-            // href={'#' + homeBlockIDs.CONTACT_FORM}
-            onClick={reqConsultation}
-            color="var(--color-custom-brand-200)"
-            speed="3s"
-            thickness={1.5}
+        <div className='ping w-min mx-auto rounded-[90px]'>
+          <div
             className={cn(
-              'cursor-pointer'
+              'rounded-[90px] overflow-hidden',
+              'mx-auto transition-all',
+              'hover:scale-[.95] focus:scale-[.95]',
+              'w-[288px] h-[44px]',
             )}
           >
-            <div
+            <StarBorder
+              as="button"
+              onClick={reqConsultation}
+              color="var(--color-custom-brand-200)"
+              speed="3s"
+              thickness={1.5}
               className={cn(
-                'bg-custom-white-100 text-custom-brand-100',
-                'w-full h-full rounded-[90px]',
-                'border-[1px] border-custom-brand-100',
-                'flex items-center justify-center',
-                'gap-2.5'
+                'cursor-pointer'
               )}
             >
-              <p
+              <div
                 className={cn(
-                  'font-geist font-semibold leading-none',
-                  'text-[16px]'
+                  'bg-custom-white-100 text-custom-brand-100',
+                  'w-full h-full rounded-[90px]',
+                  'border-[1px] border-custom-brand-100',
+                  'flex items-center justify-center',
+                  'gap-2.5'
                 )}
               >
-                Запросить консультацию
-              </p>
-
-              <div>
-                <ArrowRightIcon
+                <p
                   className={cn(
-                    'w-[20px] h-[20px]'
+                    'font-geist font-semibold whitespace-nowrap leading-none',
+                    'text-[16px]'
                   )}
-                />
+                >
+                  Запросить консультацию
+                </p>
+
+                <div>
+                  <ArrowRightIcon
+                    className={cn(
+                      'w-[20px] h-[20px]'
+                    )}
+                  />
+                </div>
               </div>
-            </div>
-          </StarBorder>
+            </StarBorder>
+          </div>
         </div>
       </section>
     </section>

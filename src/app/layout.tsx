@@ -26,7 +26,7 @@ const geistFont = Geist({
 });
 
 export const metadata: Metadata = {
-  title: 'VAMS',
+  title: 'VAMS SMART REALTY',
   description: 'Эксклюзивные объекты элитной недвижимости в Москве. Доступные условия покупки: ипотека, рассрочка от застройщика. Персональный подбор от экспертов рынка.',
 };
 
