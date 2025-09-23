@@ -50,28 +50,49 @@
   --ping-color: #ff4d6d;
 }
 
+/*  */
+
 .ping {
   animation: ping-no-opacity 2.3s cubic-bezier(0.17, 0.84, 0.44, 1) infinite;
 }
 
 @keyframes ping-no-opacity {
   0% {
-    filter: blur(2px);
     transform: scale(0.97);
-    box-shadow: 0 0 0 0 var(--color-custom-brand-000);
+    box-shadow: 0 0 0 0 var(--color-custom-brand-200);
   }
   30%,
   40%,
   50%,
   60%,
   70% {
-    filter: blur(0px);
     transform: scale(1.03);
-    box-shadow: 0 2px 4px 2px var(--color-custom-brand-000);
+    box-shadow: 0 2px 4px 2px var(--color-custom-brand-200);
   }
   100% {
-    filter: blur(2px);
     transform: scale(0.97);
-    box-shadow: 0 0 0 0 var(--color-custom-brand-000);
+    box-shadow: 0 0 0 0 var(--color-custom-brand-200);
   }
+}
+
+.glow-animate {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0% {
+    box-shadow: 0 0 8px 2px var(--color-custom-brand-200);
+  }
+  50% {
+    box-shadow: 0 0 40px 2px var(--color-custom-brand-200);
+  }
+  100% {
+    box-shadow: 0 0 8px 2px var(--color-custom-brand-200);
+  }
+}
+
+.ping.glow-animate {
+  animation:
+    ping-no-opacity 2.3s cubic-bezier(0.17, 0.84, 0.44, 1) infinite,
+    glow-pulse 2s ease-in-out infinite;
 }

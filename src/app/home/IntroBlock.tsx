@@ -9,6 +9,7 @@ import { SplitText } from '@/bits/SplitText';
 import { FadeContent } from '@/bits/FadeContent';
 import { CountUp } from '@/bits/CountUp';
 import { mittEmitter, MittEventBusEvents } from '@/ui/eventBus';
+import { LiquidGlass } from '@/ui/LiquidGlass';
 
 type Props = {}
 
@@ -144,54 +145,45 @@ export function IntroBlock({ }: Props) {
           />
         </h3>
 
-        <div className='ping w-min mx-auto rounded-[90px]'>
+        <LiquidGlass
+          blur={5}
+          displacementScale={700}
+          className={cn(
+            'glow-animate cursor-pointer',
+            'bg-custom-brand-200 text-custom-white-200',
+            'rounded-[90px] overflow-hidden',
+            'mx-auto transition-all',
+            'hover:scale-[.95] focus:scale-[.95]',
+            'w-[288px] h-[44px]',
+          )}
+        >
           <div
+            onClick={reqConsultation}
             className={cn(
-              'rounded-[90px] overflow-hidden',
-              'mx-auto transition-all',
-              'hover:scale-[.95] focus:scale-[.95]',
-              'w-[288px] h-[44px]',
+              'w-full h-full rounded-[90px]',
+              'border-[1px] border-custom-brand-100',
+              'flex items-center justify-center',
+              'gap-2.5'
             )}
           >
-            <StarBorder
-              as="button"
-              onClick={reqConsultation}
-              color="var(--color-custom-brand-200)"
-              speed="3s"
-              thickness={1.5}
+            <p
               className={cn(
-                'cursor-pointer'
+                'font-geist font-semibold whitespace-nowrap leading-none',
+                'text-[16px] [text-shadow:-3px_1.5px_3px_rgba(0,0,0,1)]'
               )}
             >
-              <div
-                className={cn(
-                  'bg-custom-white-100 text-custom-brand-100',
-                  'w-full h-full rounded-[90px]',
-                  'border-[1px] border-custom-brand-100',
-                  'flex items-center justify-center',
-                  'gap-2.5'
-                )}
-              >
-                <p
-                  className={cn(
-                    'font-geist font-semibold whitespace-nowrap leading-none',
-                    'text-[16px]'
-                  )}
-                >
-                  Запросить консультацию
-                </p>
+              Запросить консультацию
+            </p>
 
-                <div>
-                  <ArrowRightIcon
-                    className={cn(
-                      'w-[20px] h-[20px]'
-                    )}
-                  />
-                </div>
-              </div>
-            </StarBorder>
+            <div>
+              <ArrowRightIcon
+                className={cn(
+                  'w-[20px] h-[20px]'
+                )}
+              />
+            </div>
           </div>
-        </div>
+        </LiquidGlass>
       </section>
     </section>
   )

@@ -69,7 +69,6 @@ export function ContactForm({ }: Props) {
       'font-unbounded font-medium text-custom-brand-200',
       'text-[20px] leading-[110%] w-[324px]',
       'md:w-[428px]',
-      '1_5lg:'
     )}
   >
 
