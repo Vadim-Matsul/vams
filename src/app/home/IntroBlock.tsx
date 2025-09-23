@@ -147,10 +147,11 @@ export function IntroBlock({ }: Props) {
 
         <LiquidGlass
           blur={5}
-          displacementScale={700}
+          displacementScale={1200}
           className={cn(
             'glow-animate cursor-pointer',
-            'bg-custom-brand-200 text-custom-white-200',
+            ' text-custom-white-200',
+            'bg-[#63bcae]',
             'rounded-[90px] overflow-hidden',
             'mx-auto transition-all',
             'hover:scale-[.95] focus:scale-[.95]',
@@ -161,7 +162,7 @@ export function IntroBlock({ }: Props) {
             onClick={reqConsultation}
             className={cn(
               'w-full h-full rounded-[90px]',
-              'border-[1px] border-custom-brand-100',
+              'border-[1px] border-[#63bcae]',
               'flex items-center justify-center',
               'gap-2.5'
             )}
@@ -169,7 +170,7 @@ export function IntroBlock({ }: Props) {
             <p
               className={cn(
                 'font-geist font-semibold whitespace-nowrap leading-none',
-                'text-[16px] [text-shadow:-3px_1.5px_3px_rgba(0,0,0,1)]'
+                'text-[16px] [text-shadow:-3px_1px_3px_rgba(0,0,0,0.9)]'
               )}
             >
               Запросить консультацию
@@ -178,7 +179,8 @@ export function IntroBlock({ }: Props) {
             <div>
               <ArrowRightIcon
                 className={cn(
-                  'w-[20px] h-[20px]'
+                  'w-[20px] h-[20px]',
+                  '[filter:drop-shadow(-4px_1px_3px_rgba(0,0,0,1))]'
                 )}
               />
             </div>

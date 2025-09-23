@@ -59,7 +59,7 @@
 @keyframes ping-no-opacity {
   0% {
     transform: scale(0.97);
-    box-shadow: 0 0 0 0 var(--color-custom-brand-200);
+    box-shadow: 0 0 0 0 #63bcae;
   }
   30%,
   40%,
@@ -67,11 +67,11 @@
   60%,
   70% {
     transform: scale(1.03);
-    box-shadow: 0 2px 4px 2px var(--color-custom-brand-200);
+    box-shadow: 0 2px 4px 2px #63bcae;
   }
   100% {
     transform: scale(0.97);
-    box-shadow: 0 0 0 0 var(--color-custom-brand-200);
+    box-shadow: 0 0 0 0 #63bcae;
   }
 }
 
@@ -81,13 +81,13 @@
 
 @keyframes glow-pulse {
   0% {
-    box-shadow: 0 0 8px 2px var(--color-custom-brand-200);
+    box-shadow: 0 0 8px 2px #63bcae;
   }
   50% {
-    box-shadow: 0 0 40px 2px var(--color-custom-brand-200);
+    box-shadow: 0 0 40px 2px #63bcae;
   }
   100% {
-    box-shadow: 0 0 8px 2px var(--color-custom-brand-200);
+    box-shadow: 0 0 8px 2px #63bcae;
   }
 }
 
