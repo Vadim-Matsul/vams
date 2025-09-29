@@ -223,7 +223,7 @@ export function ContactBlock() {
                   </a>
                 </FadeContent>
 
-                <FadeContent
+                {/* <FadeContent
                   blur
                   duration={1250}
                   threshold={0.7}
@@ -245,7 +245,7 @@ export function ContactBlock() {
                       className='w-[33px] h-[33px]'
                     />
                   </a>
-                </FadeContent>
+                </FadeContent> */}
               </div>
             </div>
           </div>

@@ -14,10 +14,10 @@ import { LiquidGlass } from '@/ui/LiquidGlass';
 type Props = {}
 
 const splitText_options = {
-  delay: 30,
+  delay: 10,
   duration: 0.5,
   ease: "power3.out",
-  splitType: "chars",
+  splitType: "words",
   from: { opacity: 0, y: 20 },
   to: { opacity: 1, y: 0 },
   threshold: 0,
@@ -56,27 +56,32 @@ export function IntroBlock({ }: Props) {
         easing="ease-out"
         className='relative'
       >
-        <h2
+        <h1
           className={cn(
             'font-unbounded font-medium text-custom-brand-200 text-center',
-            'w-[322px] h-[99px] mx-auto overflow-hidden ',
+            'w-[322px] h-[99px] !mx-auto !my-0 overflow-hidden ',
             'md:w-[563px] md:h-[90px]',
             'xl:w-[1100px] xl:h-[100px]',
           )}
         >
+          <span className='absolute w-0 h-0 opacity-0'>
+            Премиальная недвижимость c интеллектуальным подходом
+          </span>
+
           <SplitText
             {...splitText_options}
-            delay={10}
-            duration={0.3}
+            delay={30}
+            duration={0.5}
             className='text-[24px] leading-none md:hidden'
             text={<>
               Премиальная<br />недвижимость<br />с&nbsp;интеллектуальным<br />подходом
             </>}
           />
+
           <SplitText
             {...splitText_options}
-            delay={10}
-            duration={0.3}
+            delay={30}
+            duration={0.5}
             className='text-[30px] leading-none hidden md:inline xl:hidden'
             text={<>
               Премиальная&nbsp;недвижимость<br />с&nbsp;интеллектуальным<br />подходом
@@ -84,14 +89,14 @@ export function IntroBlock({ }: Props) {
           />
           <SplitText
             {...splitText_options}
-            delay={10}
-            duration={0.3}
+            delay={30}
+            duration={0.5}
             className='text-[48px] leading-none hidden xl:inline'
             text={<>
               Премиальная&nbsp;недвижимость<br />с&nbsp;интеллектуальным&nbsp;подходом
             </>}
           />
-        </h2>
+        </h1>
       </FadeContent>
 
       <article

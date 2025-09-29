@@ -520,7 +520,7 @@ export function Header({ }: Props) {
                   </a>
                 </FadeContent>
 
-                <FadeContent
+                {/* <FadeContent
                   blur
                   duration={1250}
                   threshold={0.7}
@@ -542,7 +542,7 @@ export function Header({ }: Props) {
                       className='w-[33px] h-[33px]'
                     />
                   </a>
-                </FadeContent>
+                </FadeContent> */}
               </div>
 
             </div>
