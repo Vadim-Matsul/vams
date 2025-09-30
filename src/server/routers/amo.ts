@@ -99,18 +99,18 @@ export const amoRouter = router({
  * @returns {number} - timestamp (секунды)
  */
 function generateMoscowTimestamp(offsetSeconds = 0) {
-  // текущее UTC время в миллисекундах
-  const nowUtc = Date.now();
+  const now = new Date();
 
-  // смещение Москвы = UTC+3 → в миллисекундах
-  const moscowOffset = 3 * 60 * 60 * 1000;
+  // Получаем дату в таймзоне Москвы
+  const moscowDate = new Date(
+    new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Europe/Moscow',
+    }).format(now),
+  );
 
-  // получаем "сейчас" в Москве
-  const nowMoscow = new Date(nowUtc + moscowOffset);
+  // Прибавляем оффсет
+  const futureTime = new Date(moscowDate.getTime() + offsetSeconds * 1000);
 
-  // добавляем оффсет, если нужен (например, +1 час)
-  const futureTime = new Date(nowMoscow.getTime() + offsetSeconds * 1000);
-
-  // возвращаем UNIX timestamp в секундах
+  // Возвращаем timestamp (в секундах)
   return Math.floor(futureTime.getTime() / 1000);
 }
