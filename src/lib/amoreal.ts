@@ -27,8 +27,6 @@ export const amoVars = {
 
 export async function amoRequest(endpoint: string, method = 'GET', body?: any) {
   try {
-    console.log('amoRequest ', amoVars.envs);
-
     const response = await fetch(`${amoVars.envs.api_url}${endpoint}`, {
       method,
       headers: {
@@ -40,11 +38,15 @@ export async function amoRequest(endpoint: string, method = 'GET', body?: any) {
     });
 
     if (!response.ok) {
-      throw new Error(`Ошибка запроса AMOcrm: ${response.status} ${await response.text()}`);
+      const text = `Ошибка запроса AMOcrm: ${response.status} ${await response.text()}`;
+      console.log(text);
+      throw new Error(text);
     }
 
     return response.json();
   } catch (err) {
-    throw new Error(`Ошибка запроса: ${err}`);
+    const text = `Ошибка запроса: ${err}`;
+    console.log(text);
+    throw new Error(text);
   }
 }
