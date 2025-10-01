@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { amoRequest } from '@/lib/amoreal';
 import { TRPCError } from '@trpc/server';
 
-const VAMS_tag = 'VamsRealty - landing';
+const VAMS_tag = 'сайт VSR';
 
 export const amoRouter = router({
   addContact: publicProcedure
@@ -45,12 +45,14 @@ export const amoRouter = router({
         const contactId = createResponse?._embedded?.contacts?.[0]?.id;
 
         /** Создание задачи к заявке */
+        const complete_till = generateMoscowTimestamp3();
+        console.log({ complete_till });
         const taskResponse = await amoRequest('/tasks', 'POST', [
           {
             entity_id: contactId,
             entity_type: 'contacts',
             text: `Связаться с клиентом ${input.name} (с сайта)`,
-            complete_till: generateMoscowTimestamp(),
+            complete_till,
           },
         ]);
 
@@ -75,11 +77,28 @@ export const amoRouter = router({
           },
         ]);
 
+        /** Создание сделки к заявке */
+        const dealResponse = await amoRequest('/leads', 'POST', [
+          {
+            name: `Сделка с сайта VSR`,
+            pipeline_id: 9509826, // Новостройки
+            status_id: 76037378, // Новая заявка
+            _embedded: {
+              contacts: [
+                {
+                  id: contactId,
+                },
+              ],
+            },
+          },
+        ]);
+
         return {
           success: true,
           contactId,
           taskId: taskResponse?.id ?? null,
           noteId: commentResponse?.id ?? null,
+          dealId: dealResponse?.id ?? null,
         };
       } catch (err) {
         // @ts-expect-error "____"
@@ -98,19 +117,14 @@ export const amoRouter = router({
  * @param {number} offsetSeconds - через сколько секунд от текущего времени (по умолчанию сразу)
  * @returns {number} - timestamp (секунды)
  */
-function generateMoscowTimestamp(offsetSeconds = 0) {
+function generateMoscowTimestamp3(offsetSeconds = 0) {
   const now = new Date();
 
-  // Получаем дату в таймзоне Москвы
-  const moscowDate = new Date(
-    new Intl.DateTimeFormat('en-US', {
-      timeZone: 'Europe/Moscow',
-    }).format(now),
-  );
+  // UTC-время в мс
+  const utcMs = now.getTime() + now.getTimezoneOffset() * 60 * 1000;
 
-  // Прибавляем оффсет
-  const futureTime = new Date(moscowDate.getTime() + offsetSeconds * 1000);
+  // Москва = UTC+3 (без учёта летнего времени, т.к. его нет в РФ)
+  const moscowMs = utcMs + 3 * 60 * 60 * 1000 + offsetSeconds * 1000;
 
-  // Возвращаем timestamp (в секундах)
-  return Math.floor(futureTime.getTime() / 1000);
+  return Math.floor(moscowMs / 1000);
 }
