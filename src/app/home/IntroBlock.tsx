@@ -60,7 +60,7 @@ export function IntroBlock({ }: Props) {
           className={cn(
             'font-unbounded font-medium text-custom-brand-200 text-center',
             'w-[322px] h-[99px] !mx-auto !my-0 overflow-hidden ',
-            'md:w-[563px] md:h-[90px]',
+            'md:w-[563px] md:h-[114px]',
             'xl:w-[1100px] xl:h-[100px]',
           )}
         >
@@ -74,7 +74,13 @@ export function IntroBlock({ }: Props) {
             duration={0.5}
             className='text-[24px] leading-none md:hidden'
             text={<>
-              Премиальная<br />недвижимость<br />с&nbsp;интеллектуальным<br />подходом
+              <div>Премиальная</div>
+              <div>недвижимость</div>
+              <div className='flex gap-[6px] w-min mx-auto'>
+                <span>c</span>
+                <span>интеллектуальным</span>
+              </div>
+              <div>подходом</div>
             </>}
           />
 
@@ -82,18 +88,37 @@ export function IntroBlock({ }: Props) {
             {...splitText_options}
             delay={30}
             duration={0.5}
-            className='text-[30px] leading-none hidden md:inline xl:hidden'
+            className='text-[30px] leading-none hidden flex-col justify-center whitespace-nowrap md:flex xl:hidden'
             text={<>
-              Премиальная&nbsp;недвижимость<br />с&nbsp;интеллектуальным<br />подходом
+              <div className='flex gap-[6px] w-min mx-auto'>
+                <span>Премиальная</span>
+                <span>недвижимость</span>
+              </div>
+              <div className='flex gap-[6px] w-min mx-auto'>
+                <span>c</span>
+                <span>интеллектуальным</span>
+              </div>
+              <div>
+                подходом
+              </div>
             </>}
           />
+
           <SplitText
             {...splitText_options}
             delay={30}
             duration={0.5}
             className='text-[48px] leading-none hidden xl:inline'
             text={<>
-              Премиальная&nbsp;недвижимость<br />с&nbsp;интеллектуальным&nbsp;подходом
+              <div className='flex gap-[15px] w-min mx-auto'>
+                <span>Премиальная</span>
+                <span>недвижимость</span>
+              </div>
+              <div className='flex gap-[15px] w-min mx-auto'>
+                <span>c</span>
+                <span>интеллектуальным</span>
+                <span>подходом</span>
+              </div>
             </>}
           />
         </h1>
