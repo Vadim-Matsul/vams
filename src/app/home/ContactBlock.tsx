@@ -1,3 +1,5 @@
+'use client';
+
 import { FadeContent } from '@/bits/FadeContent';
 import { GlareHover } from '@/bits/GlareHover';
 import { SplitText } from '@/bits/SplitText';

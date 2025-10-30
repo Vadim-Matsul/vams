@@ -16,7 +16,12 @@ const includePages = [
   pageLinkKeys.CONTACTS,
 ]
 const pageBlocks = Object.values(pageLinks).filter(link => includePages.includes(link.key))
-
+const includeLinkPages = [
+  pageLinkKeys.SERVICES_REAL_ESTATE_INVESTMENT,
+  pageLinkKeys.SERVICES_REAL_ESTATE_SUPPORT,
+]
+const linkPageBlocks = Object.values(pageLinks).filter(link => includeLinkPages.includes(link.key))
+// 
 const contacts = [
   {
     title: links.phone.str_number,
@@ -48,10 +53,6 @@ const politics = [
     href: pageLinks[pageLinkKeys.PERSONAL_DATA_CONSENT].href,
     is: pageLinks[pageLinkKeys.PERSONAL_DATA_CONSENT].is,
   },
-  // {
-  //   title: 'Файлы Cookie',
-  //   href: links.cookie_policy.href
-  // }
 ]
 
 export function Footer({ }: Props) {
@@ -131,7 +132,6 @@ export function Footer({ }: Props) {
             )}
           >
             {pageBlocks.map(pageBlock => {
-
               return (
                 <li
                   key={pageBlock.title}
@@ -150,6 +150,29 @@ export function Footer({ }: Props) {
                   >
                     {pageBlock.title}
                   </button>
+                </li>
+              )
+            })}
+            {linkPageBlocks.map(linkPageBlock => {
+              return (
+                <li
+                  key={linkPageBlock.title}
+                  className={cn(
+                    'font-geist font-semibold text-custom-white-100',
+                    'text-[14px] leading-[130%]',
+                    'xl:text-[16px]',
+                  )}
+                >
+                  <a
+                    href={linkPageBlock.href}
+                    target='_blank'
+                    className={cn(
+                      'cursor-pointer',
+                      'transition-all hover:opacity-80 focus:opac-80'
+                    )}
+                  >
+                    {linkPageBlock.title}
+                  </a>
                 </li>
               )
             })}

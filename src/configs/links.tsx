@@ -15,6 +15,12 @@ export enum pageLinkKeys {
   TEAM = 'TEAM',
   /** Страница члена команды */
   TEAM_PERSON = 'TEAM_PERSON',
+  /** Услуги */
+  SERVICES = 'SERVICES',
+  /** Услуга инвестиций в недвижимость*/
+  SERVICES_REAL_ESTATE_INVESTMENT = 'SERVICES_REAL_ESTATE_INVESTMENT',
+  /** Услуга юридическое сопровождение сделок */
+  SERVICES_REAL_ESTATE_SUPPORT = 'SERVICES_REAL_ESTATE_SUPPORT',
 }
 
 export const pageLinks = {
@@ -93,6 +99,30 @@ export const pageLinks = {
       const existTeamConfigKeys = team_config.map(person => person.key);
       return existTeamConfigKeys.includes(key as string)
     },
+  },
+  /** Услуги */
+  [pageLinkKeys.SERVICES]: {
+    key: pageLinkKeys.SERVICES,
+    title: '',
+    href: '/services',
+    make: (t: string) => '/services',
+    is: (url: string) => url.endsWith('/services'),
+  },
+  /** Услуга инвестиций в недвижимость*/
+  [pageLinkKeys.SERVICES_REAL_ESTATE_INVESTMENT]: {
+    key: pageLinkKeys.SERVICES_REAL_ESTATE_INVESTMENT,
+    title: 'Инвестиции',
+    href: '/services/real-estate-investment',
+    make: (t: string) => '/services/real-estate-investment',
+    is: (url: string) => url.endsWith('/services/real-estate-investment'),
+  },
+  /** Услуга юридическое сопровождение сделок */
+  [pageLinkKeys.SERVICES_REAL_ESTATE_SUPPORT]: {
+    key: pageLinkKeys.SERVICES_REAL_ESTATE_SUPPORT,
+    title: 'Юридическое сопровождение',
+    href: '/services/real-estate-support',
+    make: (t: string) => '/services/real-estate-support',
+    is: (url: string) => url.endsWith('/services/real-estate-support'),
   },
 } as const;
 
