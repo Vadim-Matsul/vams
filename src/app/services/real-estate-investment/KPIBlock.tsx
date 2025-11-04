@@ -47,15 +47,15 @@ export function KPIBlock({ }: Props) {
         <h3
           className={cn(
             'bg-custom-white-000/70 backdrop-blur-[20px] text-custom-brand-100 text-center',
-            'flex flex-col whitespace-nowrap font-semibold',
-            ' px-4 py-2 w-min mx-auto rounded-[20px]',
+            'flex flex-col font-semibold',
+            'px-4 py-2 mx-auto rounded-[20px]',
             'text-[20px] leading-[22px] my-10',
             'md:text-[24px] md:leading-[26px]',
             'xl:text-[28px] xl:leading-[30px] xl:px-8 xl:py-5',
+            '1_5lg:whitespace-nowrap 1_5lg:w-min'
           )}
         >
-          <span>Методика VAMS: как формируется</span>
-          <span>инвестиционное решение</span>
+          Методика VAMS: как формируется <br className='hidden 1_5lg:block' />инвестиционное решение
         </h3>
 
         <section

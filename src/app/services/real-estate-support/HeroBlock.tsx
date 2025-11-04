@@ -41,19 +41,19 @@ export function HeroBlock({ }: Props) {
             <div
               className={cn(
                 'bg-custom-white-000',
-                'flex items-center gap-2 sm:gap-4 w-min',
+                'flex items-center gap-2 sm:gap-4',
                 'py-2 px-3 rounded-[10px]'
               )}
             >
               <h1
                 className={cn(
-                  'font-medium !my-0 whitespace-nowrap',
+                  'font-medium !my-0',
                   '!text-[20px]',
                   'sm:!text-[26px]',
                   'lg:!text-[32px]',
                 )}
               >
-                Юридическое сопровождение <br className='lg:hidden' />сделок с недвижимостью
+                Юридическое сопровождение сделок с недвижимостью
               </h1>
 
               <img
@@ -111,17 +111,15 @@ export function HeroBlock({ }: Props) {
 
           <LiquidGlass
             blur={5}
-            key='vtmknvtebpvt[ebv]tnevntenvnetoiv'
             displacementScale={1200}
             className={cn(
               'glow-animate cursor-pointer',
-              'text-custom-white-200',
-              'bg-[#004539]',
+              ' text-custom-white-200',
+              'bg-[#63bcae]',
               'rounded-[90px] overflow-hidden',
               'mx-auto transition-all',
               'hover:scale-[.95] focus:scale-[.95]',
-              'w-[288px] h-[44px]',
-              'sm:w-[320px] sm:h-[50px]'
+              'w-min px-6 h-[44px]',
             )}
           >
             <a
@@ -129,7 +127,7 @@ export function HeroBlock({ }: Props) {
               target='_blank'
               className={cn(
                 'w-full h-full rounded-[90px]',
-                'border-[1px] border-[#004539]',
+                'border-[1px] border-[#63bcae]',
                 'flex items-center justify-center',
                 'gap-2.5'
               )}
@@ -138,7 +136,7 @@ export function HeroBlock({ }: Props) {
                 className={cn(
                   'font-geist font-semibold whitespace-nowrap leading-none',
                   'text-[16px] [text-shadow:-3px_1px_3px_rgba(0,0,0,0.9)]',
-                  'sm:text-[18px]'
+                  'md:text-[20px]'
                 )}
               >
                 Обсудить проект

@@ -16,7 +16,7 @@ import { ContactBlock } from '@/app/home/ContactBlock';
 export default function RealEstateInvestment() {
 
   return (
-    <>
+    <div className='font-unbounded'>
       <Header />
       <div className='relative z-[2]'>
         <Breadcrumbs />
@@ -193,7 +193,7 @@ export default function RealEstateInvestment() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   )
 }
 

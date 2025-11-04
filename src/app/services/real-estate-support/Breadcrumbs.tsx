@@ -49,7 +49,7 @@ export function Breadcrumbs() {
                   router.push(breadcrumb.href)
                 }}
                 className={cn(
-                  'whitespace-nowrap text-custom-brand-000 font-medium',
+                  ' text-custom-brand-000 font-medium',
                   !isLast && cn(
                     'transition-all duration-150 cursor-pointer',
                     'hover:opacity-80'

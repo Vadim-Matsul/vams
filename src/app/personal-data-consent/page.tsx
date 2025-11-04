@@ -11,7 +11,7 @@ const aCN = 'whitespace-nowrap cursor-pointer transition-all hover:text-custom-b
 export default function PersonalDataConsent() {
 
   return (
-    <section>
+    <section >
       <Header />
 
       <article

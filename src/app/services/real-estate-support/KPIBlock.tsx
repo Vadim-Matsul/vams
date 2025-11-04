@@ -42,21 +42,20 @@ export function KPIBlock({ }: Props) {
       </motion.div>
 
       <div
-        className='relative z-[3]'
+        className='relative z-[3] px-3'
       >
         <h3
           className={cn(
             'bg-custom-white-000/70 backdrop-blur-[20px] text-custom-brand-100 text-center',
-            'flex flex-col whitespace-nowrap font-semibold',
-            ' px-4 py-2 w-min mx-auto rounded-[20px]',
+            'flex flex-col font-semibold',
+            ' px-4 py-2 mx-auto rounded-[20px]',
             'text-[20px] leading-[22px] my-10',
             'md:text-[24px] md:leading-[26px]',
             'xl:text-[28px] xl:leading-[30px] xl:px-8 xl:py-5',
+            'xl:whitespace-nowrap xl:w-min'
           )}
         >
-          <span>Проверка юридической чистоты <span className='hidden sm:inline'>квартиры</span></span>
-          <span>
-            <span className='sm:hidden'>квартиры</span> перед покупкой</span>
+          <span>Проверка юридической чистоты квартиры перед покупкой</span>
         </h3>
 
         <section

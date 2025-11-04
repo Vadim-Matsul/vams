@@ -15,7 +15,7 @@ import { ContactForm } from '@/app/home/ContactForm';
 export default function RealEstateSupport() {
 
   return (
-    <>
+    <div className='font-unbounded'>
       <Header />
       <div className='relative z-[2]'>
         <Breadcrumbs />
@@ -192,7 +192,7 @@ export default function RealEstateSupport() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   )
 }
 
