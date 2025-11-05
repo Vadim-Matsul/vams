@@ -119,8 +119,9 @@ export function HeroBlock({ }: Props) {
               'bg-[#63bcae]',
               'rounded-[90px] overflow-hidden',
               'mx-auto transition-all',
+              'border-[1px] border-[#63bcae]',
               'hover:scale-[.95] focus:scale-[.95]',
-              'w-min px-6 h-[44px]',
+              'w-min px-6 h-[44px] flex',
             )}
           >
             <a
@@ -128,9 +129,8 @@ export function HeroBlock({ }: Props) {
               target='_blank'
               className={cn(
                 'w-full h-full rounded-[90px]',
-                'border-[1px] border-[#63bcae]',
                 'flex items-center justify-center',
-                'gap-2.5'
+                'gap-2.5 grow flex'
               )}
             >
               <p
