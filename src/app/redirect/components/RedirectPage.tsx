@@ -4,7 +4,7 @@ import { pageLinkKeys, pageLinks } from '@/configs/links';
 import { gaEvent } from '@/utils/gaEvent';
 import { sendYMEvent } from '@/utils/sendYMEvent';
 import { usePathname, useRouter } from 'next/navigation';
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 
 const STORAGE_KEY = 'qr_redirect';
 const EVENT_NAME = 'QR_REDIRECT';
@@ -70,7 +70,7 @@ export function RedirectPage() {
     return payload;
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (isServer) return;
 
     const alreadyVisited = Boolean(localStorage.getItem(STORAGE_KEY));
@@ -81,20 +81,24 @@ export function RedirectPage() {
 
     const payload = getEventPayload();
 
-    gaEvent(EVENT_NAME, payload);
-    sendYMEvent(
+    const isSucessGA = gaEvent(EVENT_NAME, payload);
+    const isSucessYA1 = sendYMEvent(
       NEXT_PUBLIC_YM_COUNTER_ID,
       EVENT_NAME,
       payload
     )
-    sendYMEvent(
+    const isSucessYA2 = sendYMEvent(
       NEXT_PUBLIC_YM_COUNTER_ID_2,
       EVENT_NAME,
       payload
     )
 
-    console.log('Все event отправлены в YA & GA');
-    localStorage.setItem(STORAGE_KEY, 'true')
+    const isSuccess = isSucessGA && isSucessYA1 && isSucessYA2;
+    console.log({ isSucessGA, isSucessYA1, isSucessYA2 });
+    if (isSuccess) {
+      console.log('Все event отправлены в YA & GA');
+      localStorage.setItem(STORAGE_KEY, 'true')
+    }
 
     setTimeout(() => {
       router.push(pageLinks[pageLinkKeys.HOME].href);
