@@ -3,6 +3,7 @@
 import { pageLinkKeys, pageLinks } from '@/configs/links';
 import { gaEvent } from '@/utils/gaEvent';
 import { sendYMEvent } from '@/utils/sendYMEvent';
+import { waitForGlobal } from '@/utils/waitForGlobal';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useLayoutEffect } from 'react';
 
@@ -73,37 +74,45 @@ export function RedirectPage() {
   useEffect(() => {
     if (isServer) return;
 
-    const alreadyVisited = Boolean(localStorage.getItem(STORAGE_KEY));
-    if (alreadyVisited) {
-      router.push(pageLinks[pageLinkKeys.HOME].href);
-      return;
+    async function sendEvents() {
+      const alreadyVisited = Boolean(localStorage.getItem(STORAGE_KEY));
+      if (alreadyVisited) {
+        router.push(pageLinks[pageLinkKeys.HOME].href);
+        return;
+      }
+
+      const gtag = await waitForGlobal("gtag");
+      console.log({ gtag })
+      const ym = await waitForGlobal("ym");
+      console.log({ ym })
+
+      const payload = getEventPayload();
+
+      const isSucessGA = gaEvent(EVENT_NAME, payload);
+      const isSucessYA1 = sendYMEvent(
+        NEXT_PUBLIC_YM_COUNTER_ID,
+        EVENT_NAME,
+        payload
+      )
+      const isSucessYA2 = sendYMEvent(
+        NEXT_PUBLIC_YM_COUNTER_ID_2,
+        EVENT_NAME,
+        payload
+      )
+
+      const isSuccess = isSucessGA && isSucessYA1 && isSucessYA2;
+      console.log({ isSucessGA, isSucessYA1, isSucessYA2 });
+      if (isSuccess) {
+        console.log('Все event отправлены в YA & GA');
+        localStorage.setItem(STORAGE_KEY, 'true')
+      }
+
+      setTimeout(() => {
+        router.push(pageLinks[pageLinkKeys.HOME].href);
+      }, 300)
     }
 
-    const payload = getEventPayload();
-
-    const isSucessGA = gaEvent(EVENT_NAME, payload);
-    const isSucessYA1 = sendYMEvent(
-      NEXT_PUBLIC_YM_COUNTER_ID,
-      EVENT_NAME,
-      payload
-    )
-    const isSucessYA2 = sendYMEvent(
-      NEXT_PUBLIC_YM_COUNTER_ID_2,
-      EVENT_NAME,
-      payload
-    )
-
-    const isSuccess = isSucessGA && isSucessYA1 && isSucessYA2;
-    console.log({ isSucessGA, isSucessYA1, isSucessYA2 });
-    if (isSuccess) {
-      console.log('Все event отправлены в YA & GA');
-      localStorage.setItem(STORAGE_KEY, 'true')
-    }
-
-    setTimeout(() => {
-      router.push(pageLinks[pageLinkKeys.HOME].href);
-    }, 300)
-
+    sendEvents();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, isServer])
 
