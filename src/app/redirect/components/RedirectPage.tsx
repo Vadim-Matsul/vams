@@ -77,7 +77,7 @@ export function RedirectPage() {
     async function sendEvents() {
       const alreadyVisited = Boolean(localStorage.getItem(STORAGE_KEY));
       if (alreadyVisited) {
-        router.push(pageLinks[pageLinkKeys.HOME].href);
+        router.replace(pageLinks[pageLinkKeys.HOME].href);
         return;
       }
 
@@ -108,7 +108,7 @@ export function RedirectPage() {
       }
 
       setTimeout(() => {
-        router.push(pageLinks[pageLinkKeys.HOME].href);
+        router.replace(pageLinks[pageLinkKeys.HOME].href);
       }, 300)
     }
 
