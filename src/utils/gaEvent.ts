@@ -5,7 +5,7 @@ export const gaEvent = (name: string, params: Record<string, any> = {}) => {
   }
 
   if (!window.gtag) {
-    console.error('Ошибка отправки event GA - нет window.gtag');
+    console.error('Ошибка  отправки event GA - нет window.gtag');
     return false;
   }
 
