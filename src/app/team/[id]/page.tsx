@@ -15,6 +15,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${person.name} — ${person.role} | VAMS SMART REALTY`,
     description: person.desc,
+    alternates: { canonical: `/team/${id}` },
+    openGraph: {
+      url: `/team/${id}`,
+      images: [{ url: person.img, width: 400, height: 400, alt: person.name }],
+    },
   };
 }
 

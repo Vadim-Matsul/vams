@@ -14,7 +14,12 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Подбор премиальных новостроек в Москве — экспертный доступ и сопровождение сделки | VAMS SMART REALTY',
-  description: 'Экспертный доступ к премиальным новостройкам Москвы: глубокая оценка девелоперов, анализ проектов, переговоры на выгодных условиях и расчёт потенциала роста стоимости. Помогаем выбрать элитную недвижимость с учётом ваших целей и получить лучшие предложения от застройщиков.'
+  description: 'Экспертный доступ к премиальным новостройкам Москвы: глубокая оценка девелоперов, анализ проектов, переговоры на выгодных условиях и расчёт потенциала роста стоимости. Помогаем выбрать элитную недвижимость с учётом ваших целей и получить лучшие предложения от застройщиков.',
+  alternates: { canonical: '/services/luxury-real-estate-developers' },
+  openGraph: {
+    url: '/services/luxury-real-estate-developers',
+    images: [{ url: '/images/services_development.jpg', width: 1200, height: 630, alt: 'Подбор премиальных новостроек — VAMS SMART REALTY' }],
+  },
 };
 
 export default function LuxuryRealEstateDevelopers() {

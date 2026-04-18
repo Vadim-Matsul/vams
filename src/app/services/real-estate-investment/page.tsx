@@ -15,6 +15,11 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Инвестиции в недвижимость в Москве — персональная стратегия и аналитика | VAMS SMART REALTY',
   description: 'Инвестиции в премиальную недвижимость Москвы с просчётом и аналитикой: персональная стратегия под ваши цели, глубокий анализ рынка и рисков, сопровождение сделки от выбора объекта до получения прибыли.',
+  alternates: { canonical: '/services/real-estate-investment' },
+  openGraph: {
+    url: '/services/real-estate-investment',
+    images: [{ url: '/images/services_investment.jpg', width: 1200, height: 630, alt: 'Инвестиции в недвижимость — VAMS SMART REALTY' }],
+  },
 };
 
 export default function RealEstateInvestment() {

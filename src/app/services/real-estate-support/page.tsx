@@ -15,6 +15,11 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Юридическое сопровождение сделок с недвижимостью в Москве | VAMS SMART REALTY',
   description: 'Полное юридическое сопровождение сделок с премиальной недвижимостью в Москве: проверка юридической чистоты объекта, защита интересов клиента на всех этапах, прозрачная стоимость и гарантия законности сделки.',
+  alternates: { canonical: '/services/real-estate-support' },
+  openGraph: {
+    url: '/services/real-estate-support',
+    images: [{ url: '/images/dark_town.jpg', width: 1200, height: 630, alt: 'Юридическое сопровождение — VAMS SMART REALTY' }],
+  },
 };
 
 export default function RealEstateSupport() {
