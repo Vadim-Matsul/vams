@@ -1,0 +1,68 @@
+export const TEAM_KEYS = {
+  hakobyan: 'Hakobyan_Minas_Oganesovich',
+  zakharova: 'Zakharova_Yana_Mikhailovna',
+  platonova: 'Platonova_Mariya_Andreevna',
+  bredyuk: 'Bredyuk_Kristina_Vladimirovna',
+  nikulnikova: 'Nikulnikova_Mariya_Olegovna',
+  zholobova: 'Zholobova_Elena_Vasilevna',
+  varlakova: 'Varlakova_Valeria_Alexandrovna',
+};
+
+export const team_config = [
+  {
+    key: TEAM_KEYS.hakobyan,
+    name: 'Акопян Минас Оганесович',
+    desc: 'Основатель и руководитель VSR. Полиглот и экономист, владеющий инвестиционной экспертизой. 10 лет успешно развивает бизнес-проекты в разных сферах.',
+    badge: 'Стаж 10 лет',
+    role: 'Основатель и руководитель',
+    img: '/images/team_hakobyan_new.png',
+  },
+  {
+    key: TEAM_KEYS.zakharova,
+    name: 'Захарова Яна Михайловна',
+    desc: 'Как управляющий партнёр создает новые стандарты работы с премиальной недвижимостью. Тонко чувствует баланс между эстетикой и выгодой.',
+    role: 'Управляющий партнёр',
+    badge: '',
+    img: '/images/team_zakharova_new.png',
+  },
+  {
+    key: TEAM_KEYS.platonova,
+    name: 'Платонова Мария Андреевна',
+    desc: 'Специалист с экономическим образованием и вниманием к деталям. Превращает сложные процессы в чёткие и организованные системы. Ваши документы всегда в идеальном порядке.',
+    role: 'Секретарь',
+    badge: '',
+    img: '/images/team_platonova_new.png',
+  },
+  {
+    key: TEAM_KEYS.bredyuk,
+    name: 'Бредюк Кристина Владимировна',
+    desc: 'Координатор с медицинским образованием. Быстро анализирует детали и находит оптимальные решения. Подходит к каждому клиенту со взглядом исследователя.',
+    role: 'Координатор',
+    badge: '',
+    img: '/images/team_bredyuk_new.jpg',
+  },
+  {
+    key: TEAM_KEYS.nikulnikova,
+    name: 'Никульникова Мария Олеговна',
+    desc: 'Опытный координатор с 6-летним стажем в продажах. Превращает ваши потребности в идеальные предложения.',
+    role: 'Опытный Координатор',
+    badge: '',
+    img: '/images/team_nikulnikova_new.png',
+  },
+  {
+    key: TEAM_KEYS.zholobova,
+    name: 'Жолобова Елена Васильевна',
+    desc: 'Эффективно решает даже самые сложные финансовые задачи. Находит решения, которые другие считают невозможными.',
+    role: 'Ипотечный специалист',
+    badge: '',
+    img: '/images/team_zholobova_new.png',
+  },
+  {
+    key: TEAM_KEYS.varlakova,
+    name: 'Варлакова Валерия Александровна',
+    desc: 'Юрист по образованию, перфекционист по призванию. Обеспечивает безупречную точность документооборота и юридическую чистоту каждой сделки.',
+    role: 'Юрист',
+    badge: '',
+    img: '/images/team_varlakova_new.png',
+  },
+];

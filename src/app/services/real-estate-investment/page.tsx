@@ -10,8 +10,12 @@ import { StepperBlock } from './StepperBlock';
 import { TeamBlock } from '@/app/home/TeamBlock';
 import { ContactForm } from '@/app/home/ContactForm';
 import { ContactBlock } from '@/app/home/ContactBlock';
+import type { Metadata } from 'next';
 
-
+export const metadata: Metadata = {
+  title: 'Инвестиции в недвижимость в Москве — персональная стратегия и аналитика | VAMS SMART REALTY',
+  description: 'Инвестиции в премиальную недвижимость Москвы с просчётом и аналитикой: персональная стратегия под ваши цели, глубокий анализ рынка и рисков, сопровождение сделки от выбора объекта до получения прибыли.',
+};
 
 export default function RealEstateInvestment() {
 

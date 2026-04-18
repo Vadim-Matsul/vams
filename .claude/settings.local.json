@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ssh -o StrictHostKeyChecking=no root@82.148.17.35 \"cd /root/vams && npm audit fix 2>&1 | tail -15\")",
+      "Bash(ssh -o StrictHostKeyChecking=no root@82.148.17.35 \"cd /root/vams && npm install next@15.5.15 2>&1 | tail -10\")",
+      "Bash(./node_modules/.bin/next build *)"
+    ]
+  }
+}

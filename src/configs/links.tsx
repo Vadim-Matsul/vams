@@ -1,4 +1,4 @@
-import { team_config, TEAM_KEYS } from '@/app/home/TeamBlock';
+import { team_config, TEAM_KEYS } from '@/configs/team-config';
 
 export enum pageLinkKeys {
   HOME = 'HOME',

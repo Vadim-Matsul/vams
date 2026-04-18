@@ -10,7 +10,12 @@ import { StepperBlock } from './StepperBlock';
 import { TeamBlock } from '@/app/home/TeamBlock';
 import { ContactBlock } from '@/app/home/ContactBlock';
 import { ContactForm } from '@/app/home/ContactForm';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Юридическое сопровождение сделок с недвижимостью в Москве | VAMS SMART REALTY',
+  description: 'Полное юридическое сопровождение сделок с премиальной недвижимостью в Москве: проверка юридической чистоты объекта, защита интересов клиента на всех этапах, прозрачная стоимость и гарантия законности сделки.',
+};
 
 export default function RealEstateSupport() {
 
