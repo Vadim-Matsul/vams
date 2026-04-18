@@ -1,9 +1,9 @@
 User-agent: *
 
-# Запрещаем индексацию фильтров и параметров в URL
+# Запрещаем служебные страницы и URL с параметрами
+Disallow: /redirect
 Disallow: /*?*
 Disallow: /*&*
-Disallow: /team/
 
 # Разрешаем все остальные страницы
 Allow: /
