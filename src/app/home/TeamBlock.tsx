@@ -17,6 +17,9 @@ import { TEAM_KEYS, team_config } from '@/configs/team-config';
 
 export { TEAM_KEYS, team_config };
 
+const DESKTOP_WIDTH = screensData.md.num;
+const LG_1_5_WIDTH = screensData['1_5lg'].num;
+
 const mobile_requireshowteam = [
   TEAM_KEYS.hakobyan,
   TEAM_KEYS.zakharova,
